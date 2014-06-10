@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.mskcc.cbio.graphviz</groupId>
-	<artifactId>graphviz</artifactId>
+	<groupId>org.mskcc.cbio.captonviz</groupId>
+	<artifactId>captonviz</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>Generic Graph Visualizer</name>
+	<name>Cancer Proteomic Network Visualization</name>
 	<!--url>http://cbio.mskcc.org/pcviz</url-->
 
 	<properties>

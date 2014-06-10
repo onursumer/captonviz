@@ -65,17 +65,18 @@ public class StudyController
 		return new ResponseEntity<String>(methods, headers, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "get/{study}/{method}", method = {RequestMethod.GET, RequestMethod.POST},
+	@RequestMapping(value = "get/{study}/{method}/{size}", method = {RequestMethod.GET, RequestMethod.POST},
 	                headers = "Accept=application/json")
 	public ResponseEntity<String> getStudyData(@PathVariable String study,
-			@PathVariable String method)
+			@PathVariable String method,
+			@PathVariable Integer size)
 	{
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 
 		String response;
 		try {
-			response = cancerContextService.getStudyData(study, method);
+			response = cancerContextService.getStudyData(study, method, size);
 		} catch (IOException e) {
 			return new ResponseEntity<String>(e.getMessage(), headers, HttpStatus.BAD_REQUEST);
 		}

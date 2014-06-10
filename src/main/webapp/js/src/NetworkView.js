@@ -23,9 +23,47 @@ var NetworkView = Backbone.View.extend({
 			precision: 0
 		}; // end of pcVizLayoutOptions
 
+		var captonVizStyle = cytoscape.stylesheet()
+	        .selector("node")
+	        .css({
+	            "content": "data(prot)",
+	            //"shape": "data(shape)",
+	            "border-width": 3,
+	            //"background-color": "mapData(altered, 0, 1, #DDDDDD, red)",
+				"background-color": "#DDDDDD",
+	            "border-color": "#555",
+	            "font-size": "15"
+	        })
+	        .selector("edge")
+	        .css({
+	            //"width": "mapData(cited, 5, 50, 0.4, 0.5)",
+	            "line-color": "#444"
+	        })
+	        .selector("[?isdirected]")
+	        .css({
+	            "target-arrow-shape": "triangle"
+	        })
+	        .selector("edge[edgesign=1]")
+	        .css({
+	            "line-color": "#FF0000"
+	        })
+			.selector("edge[edgesign=-1]")
+	        .css({
+	            "line-color": "#0000FF"
+	        })
+	        .selector(":selected")
+	        .css({
+	            "background-color": "#000",
+	            "line-color": "#000",
+	            "source-arrow-color": "#000",
+	            "target-arrow-color": "#000"
+	        });
+
+		container.empty();
+
 		container.cytoscape({
 			elements: self.model.data,
-			style: cytoscape.stylesheet(),
+			style: captonVizStyle,
 			layout: pcVizLayoutOptions
 		});
 	}

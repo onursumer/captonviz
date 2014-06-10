@@ -13,14 +13,17 @@ var Method = Backbone.Model.extend({
 });
 
 var StudyData = Backbone.Model.extend({
-	initialize: function(attributes) {
+	initialize: function(attributes)
+	{
 		this.edges = attributes.edges;
         this.nodes = attributes.nodes;
 	},
-	url: function() {
-        return "study/get/"
-            + this.get("studyId") + "/"
-            + this.get("method");
+	url: function()
+	{
+		return "study/get/" +
+			this.get("studyId") + "/" +
+			this.get("method") + "/" +
+			this.get("size");
     }
 });
 

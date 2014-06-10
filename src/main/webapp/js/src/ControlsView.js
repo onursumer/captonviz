@@ -10,8 +10,18 @@ var ControlsView = Backbone.View.extend({
 			success: function()
 			{
 				var studyOptions = [];
+				var studyList = studies.models.sort(function(a, b) {
+					if (a.studyName > b.studyName)
+					{
+						return 1;
+					}
+					else
+					{
+						return -1;
+					}
+				});
 
-				_.each(studies.models, function(study) {
+				_.each(studyList, function(study) {
 					studyOptions.push(_.template($("#select_item_template").html(),
 						{selectId: study.studyId, selectName: study.studyName}));
 				});
@@ -20,8 +30,18 @@ var ControlsView = Backbone.View.extend({
 					success: function()
 					{
 						var methodOptions = [];
+						var methodList = methods.models.sort(function(a, b) {
+							if (a.methodName > b.methodName)
+							{
+								return 1;
+							}
+							else
+							{
+								return -1;
+							}
+						});
 
-						_.each(methods.models, function(method) {
+						_.each(methodList, function(method) {
 							methodOptions.push(_.template($("#select_item_template").html(),
 								{selectId: method.methodId, selectName: method.methodName}));
 						});
@@ -47,14 +67,43 @@ var ControlsView = Backbone.View.extend({
 	{
 		var self = this;
 
-		var submit = self.$el.find(".visualize-study");
+		var minVal = 0;
+		var defaultVal = 100;
+		// TODO exact maxVal depends on the network size..
+		var maxVal = 1000;
+
+		var studyBox = self.$el.find("#cancer-studies-box");
+		var methodBox = self.$el.find("#methods-box");
+		var edgeSlider = self.$el.find(".ui-slider");
+
+		$("#number-of-genes-info").html(defaultVal);
+
+		studyBox.dropkick();
+		methodBox.dropkick();
+		edgeSlider.slider({
+			min: minVal,
+			max: maxVal,
+			value: defaultVal,
+			orientation: "horizontal",
+			range: "min",
+			slide: function(event, ui) {
+				$("#number-of-genes-info").html(ui.value);
+			},
+			change: function(event, ui) {
+				$("#slider-help-row").fadeOut();
+			}
+		});
+
+		var submit = self.$el.find("#visualize-study");
 
 		submit.click(function() {
-			var studyId = self.$el.find(".cancer-studies-box").val();
-			var method = self.$el.find(".methods-box").val();
+			var studyId = studyBox.val();
+			var method = methodBox.val();
+			var size = edgeSlider.slider("value");
 
 			var studyData = new StudyData({studyId: studyId,
-				method: method});
+				method: method,
+				size: size});
 
 			studyData.fetch({
 				success: function()
@@ -63,7 +112,7 @@ var ControlsView = Backbone.View.extend({
 					var data = {nodes: studyData.attributes.nodes,
 						edges: studyData.attributes.edges};
 
-					var networkOpts = {el: "#network_container", model: {data: data}};
+					var networkOpts = {el: "#main-network-view", model: {data: data}};
 					var networkView = new NetworkView(networkOpts);
 
 					networkView.render();

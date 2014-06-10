@@ -108,7 +108,9 @@ public class CancerContextService
 	}
 
 	@Cacheable("cancerContextDataCache")
-	public String getStudyData(String study, String method) throws IOException
+	public String getStudyData(String study,
+			String method,
+			Integer size) throws IOException
 	{
 		JSONSerializer jsonSerializer = new JSONSerializer().exclude("*.class");
 
@@ -127,7 +129,9 @@ public class CancerContextService
 		StudyFileUtil util = new StudyFileUtil(headerLine);
 		String line;
 
-		while ((line = in.readLine()) != null)
+		for (int i = 0;
+		     i < size && (line = in.readLine()) != null;
+		     i++)
 		{
 			edges.add(util.parseLine(line));
 		}

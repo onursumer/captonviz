@@ -31,18 +31,18 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8">
-    <title>GraphViz</title>
+    <title>CaptonViz</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- jQuery UI -->
     <link href="css/jquery-ui-1.10.3.custom.css" rel="stylesheet">
 
       <!-- Loading Bootstrap -->
-    <!--link href="css/bootstrap.css" rel="stylesheet"-->
+    <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Loading Flat UI -->
-    <!--link href="css/flat-ui.css" rel="stylesheet">
-    <link rel="shortcut icon" href="images/favicon.ico"-->
+    <link href="css/flat-ui.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/favicon.ico">
 
     <link href="css/jquery.fancybox-1.3.4.css" rel="stylesheet">
 
@@ -51,9 +51,9 @@
     <link href="css/jquery.cytoscape-panzoom.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
-    <!-- Loading GraphViz; this should always be the last to call! -->
-    <!--link href="css/pcviz.css" rel="stylesheet"-->
-	<link href="css/graphviz.css" rel="stylesheet">
+    <!-- Loading CaptonViz; this should always be the last to call! -->
+    <link href="css/pcviz.css" rel="stylesheet">
+	<!--link href="css/graphviz.css" rel="stylesheet"-->
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -95,6 +95,7 @@
 	<script src="js/src/graphviz.js"></script>
 	<script src="js/src/NetworkView.js"></script>
 	<script src="js/src/ControlsView.js"></script>
+	<script src="js/src/MainView.js"></script>
 	<script src="js/src/StudyModel.js"></script>
 
 	<!-- PCViz and its components -->
@@ -121,25 +122,79 @@
 	</script>
 
 	<script type="text/template" id="network_controls_template">
-		<select class="cancer-studies-box">
-			<option value="none">Select a cancer study</option>
+		<h4 class="demo-panel-title">Cancer Study</h4>
+		<select id="cancer-studies-box" class="span3" tabindex="1">
 			{{studyOptions}}
 		</select>
-		<select class="methods-box">
-			<option value="none">Select a method</option>
+
+		<h4 class="demo-panel-title">Method</h4>
+		<select id="methods-box" class="span3" tabindex="1">
 			{{methodOptions}}
 		</select>
-		<button class="visualize-study">Visualize</button>
-	</script>
 
-	<div id="main_container">
+		<h4 class="demo-panel-title">Number of edges <small>(<span id="number-of-genes-info"></span>)</small></h4>
 		<table>
 			<tr>
-				<td class="graph-content"><div id="network_container"></div></td>
-				<td class="controls-content"><div id="network_controls"></div></td>
+				<td class="minus-sign-container">
+					<a href="#" id="decrease-button" class="slider-control"><i class="icon-minus"></i></a>
+				</td>
+				<td colspan='2' class="nodes-slider-container">
+					<div id="slider-nodes" class="ui-slider"></div>
+				</td>
+				<td>
+					<a href="#" id="increase-button" class="slider-control"><i class="icon-plus"></i></a>
+				</td>
+			</tr>
+			<tr id="slider-help-row">
+				<td></td>
+				<td>
+					<p class="help-slider-text palette palette-silver">
+						Slide to change the number of edges
+					</p>
+				</td>
+				<td>
+					<img src="images/help-up-arrow.png" width="90">
+				</td>
+				<td></td>
 			</tr>
 		</table>
-	</div>
+		<a id="visualize-study" class="btn btn-primary btn-large btn-block" href="#">
+			Visualize
+		</a>
+	</script>
+
+	<script type="text/template" id="main-view-template">
+		<div class="row mainview">
+			<div class="span8">  <!-- cytoscape view -->
+				<!--div class="network-loading">
+					<h4>Loading network...</h4>
+					<img src="images/loading.gif" alt="loading network...">
+				</div-->
+				<div id="network-container">
+					<div id="main-network-view"></div>
+					<div class="row" id="control-panels">
+						<div class="span6 offset1">
+							<div class="btn-toolbar">
+								<div class="btn-group network-controls">
+									<a class="btn" id="download-network" href="#"><i class="icon-download-alt"></i> Download</a>
+									<a class="btn" id="embed-network" href="#"><i class="icon-code"></i> Embed</a>
+									<a class="btn" id="refresh-view" href="#"><i class="icon-refresh"></i> Reset</a>
+									<a class="btn" id="full-screen-link" href="#"><i class="icon-resize-full"></i> Full screen</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="span4">
+				<div class="tab-pane" id="graph-settings">
+					<!-- network controls view -->
+				</div>
+			</div>
+		</div>
+	</script>
+
+	<div id="main_container"></div>
 
   </body>
 </html>

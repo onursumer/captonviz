@@ -5,6 +5,6 @@ _.templateSettings = {
 };
 
 $(document).ready(function() {
-	var controlsView = new ControlsView({el: "#network_controls"});
-	controlsView.render();
+	var mainView = new MainView({el: "#main_container"});
+	mainView.render();
 });
