@@ -74,12 +74,18 @@ var ControlsView = Backbone.View.extend({
 
 		var studyBox = self.$el.find("#cancer-studies-box");
 		var methodBox = self.$el.find("#methods-box");
+		var edgeBox = self.$el.find("#edge-color-box");
+		var labelBox = self.$el.find("#node-label-box");
+
 		var edgeSlider = self.$el.find(".ui-slider");
 
 		$("#number-of-genes-info").html(defaultVal);
 
 		studyBox.dropkick();
 		methodBox.dropkick();
+		labelBox.dropkick();
+		edgeBox.dropkick();
+
 		edgeSlider.slider({
 			min: minVal,
 			max: maxVal,
@@ -100,6 +106,8 @@ var ControlsView = Backbone.View.extend({
 			var studyId = studyBox.val();
 			var method = methodBox.val();
 			var size = edgeSlider.slider("value");
+			var color = edgeBox.val();
+			var label = labelBox.val();
 
 			var studyData = new StudyData({studyId: studyId,
 				method: method,
@@ -112,7 +120,9 @@ var ControlsView = Backbone.View.extend({
 					var data = {nodes: studyData.attributes.nodes,
 						edges: studyData.attributes.edges};
 
-					var networkOpts = {el: "#main-network-view", model: {data: data}};
+					var model = {data: data, edgeColor: color, nodeLabel: label};
+
+					var networkOpts = {el: "#main-network-view", model: model};
 					var networkView = new NetworkView(networkOpts);
 
 					networkView.render();

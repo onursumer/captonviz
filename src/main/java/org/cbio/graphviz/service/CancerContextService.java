@@ -143,8 +143,8 @@ public class CancerContextService
 			Object prot1 = edge.getProperty(PropertyKey.PROT1);
 			Object prot2 = edge.getProperty(PropertyKey.PROT2);
 
-			Object gene1 = edge.getProperty(PropertyKey.PROT1);
-			Object gene2 = edge.getProperty(PropertyKey.PROT2);
+			Object gene1 = edge.getProperty(PropertyKey.GENE1);
+			Object gene2 = edge.getProperty(PropertyKey.GENE2);
 
 			if (map.get(prot1) == null)
 			{

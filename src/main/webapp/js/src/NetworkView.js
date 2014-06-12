@@ -26,7 +26,7 @@ var NetworkView = Backbone.View.extend({
 		var captonVizStyle = cytoscape.stylesheet()
 	        .selector("node")
 	        .css({
-	            "content": "data(prot)",
+	            "content": "data(" + self.model.nodeLabel +")",
 	            //"shape": "data(shape)",
 	            "border-width": 3,
 	            //"background-color": "mapData(altered, 0, 1, #DDDDDD, red)",
@@ -43,14 +43,6 @@ var NetworkView = Backbone.View.extend({
 	        .css({
 	            "target-arrow-shape": "triangle"
 	        })
-	        .selector("edge[edgesign=1]")
-	        .css({
-	            "line-color": "#FF0000"
-	        })
-			.selector("edge[edgesign=-1]")
-	        .css({
-	            "line-color": "#0000FF"
-	        })
 	        .selector(":selected")
 	        .css({
 	            "background-color": "#000",
@@ -58,6 +50,29 @@ var NetworkView = Backbone.View.extend({
 	            "source-arrow-color": "#000",
 	            "target-arrow-color": "#000"
 	        });
+
+		if (self.model.edgeColor == "edgesign")
+		{
+			captonVizStyle.selector("edge[edgesign=1]")
+		        .css({
+		            "line-color": "#FF0000"
+		        })
+				.selector("edge[edgesign=-1]")
+		        .css({
+		            "line-color": "#0000FF"
+		        })
+		}
+		else
+		{
+			captonVizStyle.selector("edge[inpc=0]")
+		        .css({
+		            "line-color": "#FF0000"
+		        })
+				.selector("edge[inpc=1]")
+		        .css({
+		            "line-color": "#0000FF"
+		        })
+		}
 
 		container.empty();
 

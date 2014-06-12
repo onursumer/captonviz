@@ -145,7 +145,7 @@
 					<a href="#" id="increase-button" class="slider-control"><i class="icon-plus"></i></a>
 				</td>
 			</tr>
-			<tr id="slider-help-row">
+			<tr id="slider-help-row hide">
 				<td></td>
 				<td>
 					<p class="help-slider-text palette palette-silver">
@@ -158,12 +158,35 @@
 				<td></td>
 			</tr>
 		</table>
+
+		<h4 class="demo-panel-title">Color Edges By</h4>
+		<select id="edge-color-box" class="span3" tabindex="1">
+			<option value="edgesign">Edge Sign</option>
+			<option value="inpc">In PC</option>
+		</select>
+
+		<h4 class="demo-panel-title">Label Nodes By</h4>
+		<select id="node-label-box" class="span3" tabindex="1">
+			<option value="prot">Prot Name</option>
+			<option value="gene">Gene Name</option>
+		</select>
+
 		<a id="visualize-study" class="btn btn-primary btn-large btn-block" href="#">
 			Visualize
 		</a>
 	</script>
 
 	<script type="text/template" id="main-view-template">
+		<div class="palette-silver">
+			<div class="container">
+				<div id="pcviz-headline" class="pcviz-headline">
+					<h1>
+						CaptonViz
+						<small>Cancer Proteomic Network Visualization</small>
+					</h1>
+				</div>
+			</div>
+		</div>
 		<div class="row mainview">
 			<div class="span8">  <!-- cytoscape view -->
 				<!--div class="network-loading">
