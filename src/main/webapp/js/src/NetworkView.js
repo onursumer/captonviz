@@ -54,24 +54,24 @@ var NetworkView = Backbone.View.extend({
 		if (self.model.edgeColor == "edgesign")
 		{
 			captonVizStyle.selector("edge[edgesign=1]")
-		        .css({
-		            "line-color": "#FF0000"
-		        })
+				.css({
+					"line-color": "#FF0000"
+				})
 				.selector("edge[edgesign=-1]")
-		        .css({
-		            "line-color": "#0000FF"
-		        })
+				.css({
+					"line-color": "#0000FF"
+				});
 		}
 		else
 		{
 			captonVizStyle.selector("edge[inpc=0]")
-		        .css({
-		            "line-color": "#FF0000"
-		        })
+				.css({
+					"line-color": "#FF0000"
+				})
 				.selector("edge[inpc=1]")
-		        .css({
-		            "line-color": "#0000FF"
-		        })
+				.css({
+					"line-color": "#0000FF"
+				});
 		}
 
 		container.empty();
@@ -79,7 +79,61 @@ var NetworkView = Backbone.View.extend({
 		container.cytoscape({
 			elements: self.model.data,
 			style: captonVizStyle,
-			layout: pcVizLayoutOptions
+			layout: pcVizLayoutOptions,
+			ready: function()
+			{
+				self.cy = this;
+			}
 		});
+	},
+	updateEdgeStyle: function(edgeColor)
+	{
+		var self = this;
+		var cy = self.cy;
+
+		if (!cy)
+		{
+			return;
+		}
+
+		if (edgeColor == "edgesign")
+		{
+			cy.style().selector("edge[edgesign=1]")
+				.css({
+					"line-color": "#FF0000"
+				})
+				.selector("edge[edgesign=-1]")
+				.css({
+					"line-color": "#0000FF"
+				})
+				.update();
+		}
+		else
+		{
+			cy.style().selector("edge[inpc=0]")
+				.css({
+					"line-color": "#FF0000"
+				})
+				.selector("edge[inpc=1]")
+				.css({
+					"line-color": "#0000FF"
+				})
+				.update();
+		}
+	},
+	updateNodeStyle: function(nodeLabel)
+	{
+		var self = this;
+		var cy = self.cy;
+
+		if (!cy)
+		{
+			return;
+		}
+
+		cy.style().selector("node")
+			.css({"content": "data(" + nodeLabel +")"})
+			.update();
 	}
+
 });

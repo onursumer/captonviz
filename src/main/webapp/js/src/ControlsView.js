@@ -83,8 +83,18 @@ var ControlsView = Backbone.View.extend({
 
 		studyBox.dropkick();
 		methodBox.dropkick();
-		labelBox.dropkick();
-		edgeBox.dropkick();
+		labelBox.dropkick({change: function(value, label) {
+			if (self.networkView)
+			{
+				self.networkView.updateNodeStyle(value);
+			}
+		}});
+		edgeBox.dropkick({change: function(value, label) {
+			if (self.networkView)
+			{
+				self.networkView.updateEdgeStyle(value);
+			}
+		}});
 
 		edgeSlider.slider({
 			min: minVal,
@@ -124,6 +134,7 @@ var ControlsView = Backbone.View.extend({
 
 					var networkOpts = {el: "#main-network-view", model: model};
 					var networkView = new NetworkView(networkOpts);
+					self.networkView = networkView;
 
 					networkView.render();
 				}

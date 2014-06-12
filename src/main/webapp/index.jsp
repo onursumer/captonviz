@@ -145,7 +145,7 @@
 					<a href="#" id="increase-button" class="slider-control"><i class="icon-plus"></i></a>
 				</td>
 			</tr>
-			<tr id="slider-help-row hide">
+			<!--tr id="slider-help-row">
 				<td></td>
 				<td>
 					<p class="help-slider-text palette palette-silver">
@@ -156,7 +156,7 @@
 					<img src="images/help-up-arrow.png" width="90">
 				</td>
 				<td></td>
-			</tr>
+			</tr-->
 		</table>
 
 		<h4 class="demo-panel-title">Color Edges By</h4>
@@ -177,16 +177,6 @@
 	</script>
 
 	<script type="text/template" id="main-view-template">
-		<div class="palette-silver">
-			<div class="container">
-				<div id="pcviz-headline" class="pcviz-headline">
-					<h1>
-						CaptonViz
-						<small>Cancer Proteomic Network Visualization</small>
-					</h1>
-				</div>
-			</div>
-		</div>
 		<div class="row mainview">
 			<div class="span8">  <!-- cytoscape view -->
 				<!--div class="network-loading">
@@ -217,7 +207,17 @@
 		</div>
 	</script>
 
-	<div id="main_container"></div>
+	<div class="palette-silver">
+		<div class="container">
+			<div id="pcviz-headline" class="pcviz-headline">
+				<h1>
+					CaptonViz
+					<small>Cancer Proteomic Network Visualization</small>
+				</h1>
+			</div>
+		</div>
+	</div>
+	<div id="main_container" class="container"></div>
 
   </body>
 </html>
