@@ -8,7 +8,8 @@ var NetworkView = Backbone.View.extend({
 		var pcVizLayoutOptions = {
 			name: 'pcvizarbor',
 			liveUpdate: true,
-			nodeMass: function(e) { return e.isseed ? 2.5 : 0.2; },
+//			nodeMass: function(e) { return e.isseed ? 2.5 : 0.2; },
+			nodeMass: 0.2,
 //			edgeLength: function(e) {
 //				return edgeLengthArray[e.id];
 //			},

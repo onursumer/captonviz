@@ -70,16 +70,19 @@ var ControlsView = Backbone.View.extend({
 		var minVal = 0;
 		var defaultVal = 100;
 		// TODO exact maxVal depends on the network size..
-		var maxVal = 1000;
+		var maxVal = 500;
 
 		var studyBox = self.$el.find("#cancer-studies-box");
 		var methodBox = self.$el.find("#methods-box");
 		var edgeBox = self.$el.find("#edge-color-box");
 		var labelBox = self.$el.find("#node-label-box");
+		var incButton = self.$el.find("#increase-button");
+		var decButton = self.$el.find("#decrease-button");
+		var edgesInfo = self.$el.find("#number-of-edges-info");
 
 		var edgeSlider = self.$el.find(".ui-slider");
 
-		$("#number-of-genes-info").html(defaultVal);
+		edgesInfo.html(defaultVal);
 
 		// make ridgenet selected by default
 		self.$el.find("option[value='ridgenet']").attr("selected", "");
@@ -106,11 +109,28 @@ var ControlsView = Backbone.View.extend({
 			orientation: "horizontal",
 			range: "min",
 			slide: function(event, ui) {
-				$("#number-of-genes-info").html(ui.value);
+				edgesInfo.html(ui.value);
 			},
 			change: function(event, ui) {
-				$("#slider-help-row").fadeOut();
+				//$("#slider-help-row").fadeOut();
+				edgesInfo.html(ui.value);
 			}
+		});
+
+		decButton.click(function(e) {
+			e.preventDefault();
+
+			var oldVal = edgeSlider.slider("option", "value");
+			var newVal = Math.max(oldVal-1, minVal);
+			edgeSlider.slider({value: newVal});
+		});
+
+		incButton.click(function(e) {
+			e.preventDefault();
+
+			var oldVal = edgeSlider.slider("option", "value");
+			var newVal = Math.min(oldVal+1, maxVal);
+			edgeSlider.slider({value: newVal});
 		});
 
 		var submit = self.$el.find("#visualize-study");

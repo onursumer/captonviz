@@ -132,7 +132,7 @@
 			{{methodOptions}}
 		</select>
 
-		<h4 class="demo-panel-title">Number of edges <small>(<span id="number-of-genes-info"></span>)</small></h4>
+		<h4 class="demo-panel-title">Number of edges <small>(<span id="number-of-edges-info"></span>)</small></h4>
 		<table>
 			<tr>
 				<td class="minus-sign-container">
