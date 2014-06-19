@@ -81,6 +81,9 @@ var ControlsView = Backbone.View.extend({
 
 		$("#number-of-genes-info").html(defaultVal);
 
+		// make ridgenet selected by default
+		self.$el.find("option[value='ridgenet']").attr("selected", "");
+
 		studyBox.dropkick();
 		methodBox.dropkick();
 		labelBox.dropkick({change: function(value, label) {

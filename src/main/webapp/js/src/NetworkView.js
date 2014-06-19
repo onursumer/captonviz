@@ -37,6 +37,7 @@ var NetworkView = Backbone.View.extend({
 	        .selector("edge")
 	        .css({
 	            //"width": "mapData(cited, 5, 50, 0.4, 0.5)",
+				"width": 1.5,
 	            "line-color": "#444"
 	        })
 	        .selector("[?isdirected]")
@@ -66,11 +67,11 @@ var NetworkView = Backbone.View.extend({
 		{
 			captonVizStyle.selector("edge[inpc=0]")
 				.css({
-					"line-color": "#FF0000"
+					"line-color": "#7F7F7F"
 				})
 				.selector("edge[inpc=1]")
 				.css({
-					"line-color": "#0000FF"
+					"line-color": "#11FA34"
 				});
 		}
 
@@ -112,11 +113,11 @@ var NetworkView = Backbone.View.extend({
 		{
 			cy.style().selector("edge[inpc=0]")
 				.css({
-					"line-color": "#FF0000"
+					"line-color": "#7F7F7F"
 				})
 				.selector("edge[inpc=1]")
 				.css({
-					"line-color": "#0000FF"
+					"line-color": "#11FA34"
 				})
 				.update();
 		}
