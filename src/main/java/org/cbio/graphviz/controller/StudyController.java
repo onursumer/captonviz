@@ -1,6 +1,7 @@
 package org.cbio.graphviz.controller;
 
 import org.cbio.graphviz.service.CancerContextService;
+import org.cbio.graphviz.service.RConnectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -20,14 +21,25 @@ public class StudyController
 	@Autowired
 	CancerContextService cancerContextService;
 
-
-
 	public CancerContextService getCancerContextService() {
 		return cancerContextService;
 	}
 
 	public void setCancerContextService(CancerContextService cancerContextService) {
 		this.cancerContextService = cancerContextService;
+	}
+
+	@Autowired
+	RConnectionService rServe;
+
+	public RConnectionService getrServe()
+	{
+		return rServe;
+	}
+
+	public void setrServe(RConnectionService rServe)
+	{
+		this.rServe = rServe;
 	}
 
 	@RequestMapping(value = "list",
@@ -78,6 +90,27 @@ public class StudyController
 		try {
 			response = cancerContextService.getStudyData(study, method, size);
 		} catch (IOException e) {
+			return new ResponseEntity<String>(e.getMessage(), headers, HttpStatus.BAD_REQUEST);
+		}
+
+		return new ResponseEntity<String>(response, headers, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "custom/{study}/{method}/{size}/{samples}",
+	                method = {RequestMethod.GET, RequestMethod.POST},
+	                headers = "Accept=application/json")
+	public ResponseEntity<String> getRserveData(@PathVariable String study,
+			@PathVariable String method,
+			@PathVariable Integer size,
+			@PathVariable String samples)
+	{
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json; charset=utf-8");
+
+		String response;
+		try {
+			response = rServe.sendRequest(samples.split("|"));
+		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), headers, HttpStatus.BAD_REQUEST);
 		}
 

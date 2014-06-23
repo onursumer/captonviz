@@ -15,4 +15,7 @@
 	<bean class="org.cbio.graphviz.service.CancerContextService" id="cancerContextService">
 		<property name="edgeListResource" value="${edgeList.location}"/>
 	</bean>
+
+	<bean class="org.cbio.graphviz.service.RConnectionService" id="rServe">
+	</bean>
 </beans>

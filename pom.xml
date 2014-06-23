@@ -112,6 +112,19 @@
 			<version>2.2</version>
 		</dependency>
 
+		<!-- R -->
+		<dependency>
+			<groupId>org.nuiton.thirdparty</groupId>
+			<artifactId>Rserve</artifactId>
+			<version>1.7-3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.nuiton.thirdparty</groupId>
+			<artifactId>REngine</artifactId>
+			<version>1.7-3</version>
+		</dependency>
+
 	</dependencies>
 
 </project>
