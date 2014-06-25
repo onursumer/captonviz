@@ -1,9 +1,8 @@
 package org.cbio.graphviz.controller;
 
 import org.cbio.graphviz.service.CancerContextService;
-import org.cbio.graphviz.service.RConnectionService;
+import org.cbio.graphviz.service.CustomizedContextService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,16 +29,16 @@ public class StudyController
 	}
 
 	@Autowired
-	RConnectionService rServe;
+	CustomizedContextService customContextServe;
 
-	public RConnectionService getrServe()
+	public CustomizedContextService getCustomContextServe()
 	{
-		return rServe;
+		return customContextServe;
 	}
 
-	public void setrServe(RConnectionService rServe)
+	public void setCustomContextServe(CustomizedContextService customContextServe)
 	{
-		this.rServe = rServe;
+		this.customContextServe = customContextServe;
 	}
 
 	@RequestMapping(value = "list",
@@ -99,7 +98,7 @@ public class StudyController
 	@RequestMapping(value = "custom/{study}/{method}/{size}/{samples}",
 	                method = {RequestMethod.GET, RequestMethod.POST},
 	                headers = "Accept=application/json")
-	public ResponseEntity<String> getRserveData(@PathVariable String study,
+	public ResponseEntity<String> getCustomData(@PathVariable String study,
 			@PathVariable String method,
 			@PathVariable Integer size,
 			@PathVariable String samples)
@@ -109,7 +108,7 @@ public class StudyController
 
 		String response;
 		try {
-			response = rServe.sendRequest(samples.split("|"));
+			response = customContextServe.getStudyData(study, method, size, samples);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), headers, HttpStatus.BAD_REQUEST);
 		}
