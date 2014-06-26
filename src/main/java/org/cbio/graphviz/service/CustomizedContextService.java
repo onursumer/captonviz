@@ -36,6 +36,8 @@ public class CustomizedContextService
 		this.rppaDataResource = rppaDataResource;
 	}
 
+	private RConnection conn = null;
+
 	public String sendRequest(String request) throws RserveException, REXPMismatchException
 	{
 		JSONSerializer jsonSerializer = new JSONSerializer().exclude("*.class");
@@ -54,37 +56,69 @@ public class CustomizedContextService
 			String samples)
 		throws REXPMismatchException, RserveException, IOException
 	{
-		RConnection c = new RConnection();
+		RConnection c = this.getRConn();
 
 		JSONSerializer jsonSerializer = new JSONSerializer().exclude("*.class");
 
-		// TODO send the sample list to R...
-		String[] sampleList = samples.split("|");
-
-		String input = this.getRppaDataResource().getFile().getAbsolutePath();
-
-		// TODO call readRDS only once?
-		c.voidEval("dataMatrix <- as.matrix(readRDS('" + input + "'));");
-		c.voidEval("res <- cor(dataMatrix, method=\"pearson\");");
+		c.voidEval("samples <- c(" + this.generateSampleList(samples) + ");");
+		c.voidEval("mx <- match(samples, rownames(dataMatrix));");
+		c.voidEval("mx <- mx[!is.na(mx)];");
+		c.voidEval("filtered <- dataMatrix[mx,];");
+		c.voidEval("mat <- cor(filtered, method='pearson');");
+		c.voidEval("res <- ggm.test.edges(mat, verbose=FALSE, plot=FALSE);");
 		c.voidEval("prots <- colnames(dataMatrix);");
-		c.voidEval("res <- ggm.test.edges(res, verbose=FALSE, plot=FALSE);");
 
+		// TODO create an edge list to visualize...
 		String[] res = c.eval("cbind(prot1=prots[res[,2]], prot2=prots[res[,3]]);").asStrings();
-
-		//c.close();
 
 		return jsonSerializer.deepSerialize(res);
 	}
 
-	public boolean initData() throws IOException, RserveException
+	/**
+	 * Returns the existing r connection. If connection is not init yet,
+	 * initializes a new R connection with default libraries and data.
+	 *
+	 * @return  RConnection object
+	 * @throws IOException
+	 * @throws RserveException
+	 */
+	protected RConnection getRConn() throws IOException, RserveException
 	{
-		//File dataFile = this.getDataResource().getFile();
-		String input = this.getRppaDataResource().getFile().getAbsolutePath();
+		// init R connection if not init yet
+		if (this.conn == null)
+		{
+			// init connection
+			RConnection c = new RConnection();
+			this.conn = c;
 
-		RConnection c = new RConnection();
+			// load required lib
+			c.voidEval("library(parcor)");
 
-		c.voidEval("dataMatrix <- as.matrix(readRDS(\"" + input + "\"));");
+			// load data file
+			String input = this.getRppaDataResource().getFile().getAbsolutePath();
+			c.voidEval("dataMatrix <- as.matrix(readRDS(\"" + input + "\"));");
+		}
 
-		return true;
+		return this.conn;
+	}
+
+	protected String generateSampleList(String samples)
+	{
+		StringBuilder sb = new StringBuilder();
+		String[] sampleList = samples.split("\\|");
+
+		for (int i = 0; i < sampleList.length; i++)
+		{
+			sb.append("'");
+			sb.append(sampleList[i]);
+			sb.append("'");
+
+			if (i < sampleList.length - 1)
+			{
+				sb.append(",");
+			}
+		}
+
+		return sb.toString();
 	}
 }

@@ -38,11 +38,6 @@ public class StudyFileUtil extends FileParseUtil
 
 		CytoscapeJsEdge edge = new CytoscapeJsEdge();
 
-		//record.setHugoGeneSymbol(
-		// TabDelimitedFileUtil.getPartString(
-		// this.getColumnIndex(MafUtil.HUGO_SYMBOL),
-		// parts));
-
 		edge.setProperty(PropertyKey.WEIGHT, TabDelimitedFileUtil.getPartFloat(this.getColumnIndex(WEIGHT), parts));
 		edge.setProperty(PropertyKey.INPC, TabDelimitedFileUtil.getPartInt(this.getColumnIndex(IN_PC), parts));
 		edge.setProperty(PropertyKey.EDGESIGN, TabDelimitedFileUtil.getPartInt(this.getColumnIndex(EDGE_SIGN), parts));
