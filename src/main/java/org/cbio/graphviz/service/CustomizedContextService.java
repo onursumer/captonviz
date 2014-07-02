@@ -60,10 +60,13 @@ public class CustomizedContextService
 
 		JSONSerializer jsonSerializer = new JSONSerializer().exclude("*.class");
 
+		// generate a list of samples from the user input
 		c.voidEval("samples <- c(" + this.generateSampleList(samples) + ");");
+		// filter the data matrix for the provided sample list
 		c.voidEval("mx <- match(samples, rownames(dataMatrix));");
 		c.voidEval("mx <- mx[!is.na(mx)];");
 		c.voidEval("filtered <- dataMatrix[mx,];");
+		// calculate correlation
 		c.voidEval("mat <- cor(filtered, method='pearson');");
 		c.voidEval("res <- ggm.test.edges(mat, verbose=FALSE, plot=FALSE);");
 		c.voidEval("prots <- colnames(dataMatrix);");
@@ -92,11 +95,11 @@ public class CustomizedContextService
 			this.conn = c;
 
 			// load required lib
-			c.voidEval("library(parcor)");
+			c.voidEval("library(parcor);");
 
 			// load data file
 			String input = this.getRppaDataResource().getFile().getAbsolutePath();
-			c.voidEval("dataMatrix <- as.matrix(readRDS(\"" + input + "\"));");
+			c.voidEval("dataMatrix <- as.matrix(readRDS('" + input + "'));");
 		}
 
 		return this.conn;
