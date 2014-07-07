@@ -51,4 +51,22 @@ public class StudyFileUtil extends FileParseUtil
 
 		return edge;
 	}
+
+	public static CytoscapeJsEdge defaultEdge()
+	{
+		CytoscapeJsEdge edge = new CytoscapeJsEdge();
+
+		edge.setProperty(PropertyKey.WEIGHT, 0.0);
+		edge.setProperty(PropertyKey.INPC, 0);
+		edge.setProperty(PropertyKey.EDGESIGN, 0);
+		edge.setProperty(PropertyKey.PROT1, "");
+		edge.setProperty(PropertyKey.PROT2, "");
+		edge.setProperty(PropertyKey.GENE1, "");
+		edge.setProperty(PropertyKey.GENE2, "");
+
+		edge.setProperty(PropertyKey.SOURCE, "");
+		edge.setProperty(PropertyKey.TARGET, "");
+
+		return edge;
+	}
 }

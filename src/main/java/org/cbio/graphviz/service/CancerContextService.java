@@ -1,18 +1,19 @@
 package org.cbio.graphviz.service;
 
-import flexjson.JSON;
 import flexjson.JSONSerializer;
 import org.cbio.graphviz.model.*;
 import org.cbio.graphviz.util.StudyFileUtil;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.core.io.Resource;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
+/**
+ * Service to retrieve predefined study data as a graph.
+ *
+ * @author Selcuk Onur Sumer
+ */
 public class CancerContextService
 {
 	// source directory for the edge list files
@@ -114,28 +115,19 @@ public class CancerContextService
 	{
 		JSONSerializer jsonSerializer = new JSONSerializer().exclude("*.class");
 
-		String filename = this.getEdgeListResource().getFile().getAbsolutePath() +
-		                  "/edgelist_" + study + "_" + method + ".txt";
-
-		BufferedReader in = new BufferedReader(new FileReader(filename));
-
-		// assuming the file is not empty & first line is the header
-		String headerLine = in.readLine();
-
-		List<CytoscapeJsEdge> edges = new ArrayList<>();
-		List<CytoscapeJsNode> nodes = new ArrayList<>();
 		CytoscapeJsGraph graph = new CytoscapeJsGraph();
+		List<CytoscapeJsEdge> edges = this.getEdgeList(study, method, size);
+		List<CytoscapeJsNode> nodes = this.getNodeList(edges);
 
-		StudyFileUtil util = new StudyFileUtil(headerLine);
-		String line;
+		graph.setEdges(edges);
+		graph.setNodes(nodes);
 
-		for (int i = 0;
-		     i < size && (line = in.readLine()) != null;
-		     i++)
-		{
-			edges.add(util.parseLine(line));
-		}
+		return jsonSerializer.deepSerialize(graph);
+	}
 
+	protected List<CytoscapeJsNode> getNodeList(List<CytoscapeJsEdge> edges)
+	{
+		List<CytoscapeJsNode> nodes = new ArrayList<>();
 		Map<Object, CytoscapeJsNode> map = new HashMap<>();
 
 		for (CytoscapeJsEdge edge: edges)
@@ -171,11 +163,35 @@ public class CancerContextService
 			}
 		}
 
+		return nodes;
+	}
+
+	protected List<CytoscapeJsEdge> getEdgeList(String study,
+			String method,
+			Integer size) throws IOException
+	{
+		String filename = this.getEdgeListResource().getFile().getAbsolutePath() +
+				"/edgelist_" + study + "_" + method + ".txt";
+
+		BufferedReader in = new BufferedReader(new FileReader(filename));
+
+		// assuming the file is not empty & first line is the header
+		String headerLine = in.readLine();
+
+		List<CytoscapeJsEdge> edges = new ArrayList<>();
+
+		StudyFileUtil util = new StudyFileUtil(headerLine);
+		String line;
+
+		for (int i = 0;
+		     i < size && (line = in.readLine()) != null;
+		     i++)
+		{
+			edges.add(util.parseLine(line));
+		}
+
 		in.close();
 
-		graph.setEdges(edges);
-		graph.setNodes(nodes);
-
-		return jsonSerializer.deepSerialize(graph);
+		return edges;
 	}
 }

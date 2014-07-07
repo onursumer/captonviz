@@ -1,16 +1,26 @@
 package org.cbio.graphviz.service;
 
 import flexjson.JSONSerializer;
+import org.cbio.graphviz.model.CytoscapeJsEdge;
+import org.cbio.graphviz.model.CytoscapeJsGraph;
+import org.cbio.graphviz.model.CytoscapeJsNode;
+import org.cbio.graphviz.model.PropertyKey;
+import org.cbio.graphviz.util.StudyFileUtil;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
 import org.springframework.core.io.Resource;
 
-import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-
-public class CustomizedContextService
+/**
+ * Service to retrieve custom study data as a graph.
+ *
+ * @author Selcuk Onur Sumer
+ */
+public class CustomizedContextService extends CancerContextService
 {
 	// source file for the pancan data
 	private Resource dataResource;
@@ -38,27 +48,31 @@ public class CustomizedContextService
 
 	private RConnection conn = null;
 
-	public String sendRequest(String request) throws RserveException, REXPMismatchException
-	{
-		JSONSerializer jsonSerializer = new JSONSerializer().exclude("*.class");
-
-		RConnection c = new RConnection();
-
-		// TODO need to return an array of strings
-		double d[] = c.eval(request).asDoubles();
-
-		return jsonSerializer.deepSerialize(d);
-	}
-
 	public String getStudyData(String study,
 			String method,
 			Integer size,
 			String samples)
 		throws REXPMismatchException, RserveException, IOException
 	{
-		RConnection c = this.getRConn();
-
 		JSONSerializer jsonSerializer = new JSONSerializer().exclude("*.class");
+
+		CytoscapeJsGraph graph = new CytoscapeJsGraph();
+		List<CytoscapeJsEdge> edges = this.getEdgeList(study, method, size, samples);
+		List<CytoscapeJsNode> nodes = this.getNodeList(edges);
+
+		graph.setEdges(edges);
+		graph.setNodes(nodes);
+
+		return jsonSerializer.deepSerialize(graph);
+	}
+
+	protected List<CytoscapeJsEdge> getEdgeList(String study,
+			String method,
+			Integer size,
+			String samples)
+		throws REXPMismatchException, RserveException, IOException
+	{
+		RConnection c = this.getRConn();
 
 		// generate a list of samples from the user input
 		c.voidEval("samples <- c(" + this.generateSampleList(samples) + ");");
@@ -72,9 +86,29 @@ public class CustomizedContextService
 		c.voidEval("prots <- colnames(dataMatrix);");
 
 		// TODO create an edge list to visualize...
-		String[] res = c.eval("cbind(prot1=prots[res[,2]], prot2=prots[res[,3]]);").asStrings();
+		//String[] res = c.eval("cbind(prot1=prots[res[,2]], prot2=prots[res[,3]]);").asStrings();
+		String[] sources = c.eval("cbind(prot1=prots[res[,2]]);").asStrings();
+		String[] targets = c.eval("cbind(prot1=prots[res[,3]]);").asStrings();
 
-		return jsonSerializer.deepSerialize(res);
+		List<CytoscapeJsEdge> edges = new ArrayList<>();
+
+		for (int i = 0;
+		     i < size && i < sources.length && i < targets.length;
+		     i++)
+		{
+			// TODO we only have prot values here...
+			CytoscapeJsEdge edge = StudyFileUtil.defaultEdge();
+
+			edge.setProperty(PropertyKey.SOURCE, sources[i]);
+			edge.setProperty(PropertyKey.TARGET, targets[i]);
+
+			edge.setProperty(PropertyKey.PROT1, sources[i]);
+			edge.setProperty(PropertyKey.PROT2, targets[i]);
+
+			edges.add(edge);
+		}
+
+		return edges;
 	}
 
 	/**
