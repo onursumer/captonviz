@@ -53,7 +53,7 @@
 
     <!-- Loading CaptonViz; this should always be the last to call! -->
     <link href="css/pcviz.css" rel="stylesheet">
-	<!--link href="css/graphviz.css" rel="stylesheet"-->
+	<link href="css/graphviz.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
@@ -95,6 +95,7 @@
 	<script src="js/src/graphviz.js"></script>
 	<script src="js/src/NetworkView.js"></script>
 	<script src="js/src/ControlsView.js"></script>
+	<script src="js/src/CustomControlsView.js"></script>
 	<script src="js/src/MainView.js"></script>
 	<script src="js/src/StudyModel.js"></script>
 
@@ -176,6 +177,49 @@
 		</a>
 	</script>
 
+	<script type="text/template" id="custom_controls_template">
+		<h4 class="demo-panel-title">Samples</h4>
+		<textarea id="sample-list-input" rows="3" class="span3" tabindex="1">
+
+		</textarea>
+
+		<h4 class="demo-panel-title">Method</h4>
+		<select id="methods-box" class="span3" tabindex="1">
+			{{methodOptions}}
+		</select>
+
+		<h4 class="demo-panel-title">Number of edges <small>(<span id="number-of-edges-info"></span>)</small></h4>
+		<table>
+			<tr>
+				<td class="minus-sign-container">
+					<a href="#" id="decrease-button" class="slider-control"><i class="icon-minus"></i></a>
+				</td>
+				<td colspan='2' class="nodes-slider-container">
+					<div id="slider-nodes" class="ui-slider"></div>
+				</td>
+				<td>
+					<a href="#" id="increase-button" class="slider-control"><i class="icon-plus"></i></a>
+				</td>
+			</tr>
+		</table>
+
+		<h4 class="demo-panel-title">Color Edges By</h4>
+		<select id="edge-color-box" class="span3" tabindex="1">
+			<option value="edgesign">Edge Sign</option>
+			<option value="inpc">In PC</option>
+		</select>
+
+		<h4 class="demo-panel-title">Label Nodes By</h4>
+		<select id="node-label-box" class="span3" tabindex="1">
+			<option value="prot">Prot Name</option>
+			<option value="gene">Gene Name</option>
+		</select>
+
+		<a id="visualize-study" class="btn btn-primary btn-large btn-block" href="#">
+			Visualize
+		</a>
+	</script>
+
 	<script type="text/template" id="main-view-template">
 		<div class="row mainview">
 			<div class="span8">  <!-- cytoscape view -->
@@ -200,8 +244,23 @@
 				</div>
 			</div>
 			<div class="span4">
-				<div class="tab-pane" id="graph-settings">
-					<!-- network controls view -->
+				<ul class="nav nav-tabs" id="rightMenuControls">
+					<li class="active"><a href="#graph-settings" id="menu-cancer-study" data-toggle="tab">
+						<span class="fui-menu-16"></span> Default</a>
+					</li>
+					<li><a href="#custom-settings" id="menu-customized-network" data-toggle="tab">
+						<span class="fui-settings-16"></span> Custom</a>
+					</li>
+				</ul>
+			</div>
+			<div class="span4">
+				<div id="rightMenuTabs" class="tab-content">
+					<div class="tab-pane fade active in" id="graph-settings">
+						<!-- network controls view -->
+					</div>
+					<div class="tab-pane fade" id="custom-settings">
+						<!-- customized controls view -->
+					</div>
 				</div>
 			</div>
 		</div>

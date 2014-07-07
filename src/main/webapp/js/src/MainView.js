@@ -18,7 +18,10 @@ var MainView = Backbone.View.extend({
 	},
 	format: function()
 	{
-		var controlsView = new ControlsView({el: "#graph-settings"});
-		controlsView.render();
+		var defaultView = new ControlsView({el: "#graph-settings"});
+		var customView = new CustomControlsView({el: "#custom-settings"});
+
+		defaultView.render();
+		customView.render();
 	}
 });
