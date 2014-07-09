@@ -40,6 +40,7 @@ var CustomControlsView = Backbone.View.extend({
 		var incButton = self.$el.find("#increase-button");
 		var decButton = self.$el.find("#decrease-button");
 		var edgesInfo = self.$el.find("#number-of-edges-info");
+		var sampleInput = self.$el.find("#sample-list-input");
 
 		var edgeSlider = self.$el.find(".ui-slider");
 
@@ -100,29 +101,34 @@ var CustomControlsView = Backbone.View.extend({
 			var size = edgeSlider.slider("value");
 			var color = edgeBox.val();
 			var label = labelBox.val();
+			var samples = sampleInput.val().trim().split(/\s+/).join("|");
 
 			// TODO fetch custom study data (add new model & collection classes)
 
-//			var studyData = new StudyData({studyId: studyId,
-//				method: method,
-//				size: size});
-//
-//			studyData.fetch({
-//				success: function()
-//				{
-//					//var data = {nodes: studyData.nodes, edges: studyData.edges};
-//					var data = {nodes: studyData.attributes.nodes,
-//						edges: studyData.attributes.edges};
-//
-//					var model = {data: data, edgeColor: color, nodeLabel: label};
-//
-//					var networkOpts = {el: "#main-network-view", model: model};
-//					var networkView = new NetworkView(networkOpts);
-//					self.networkView = networkView;
-//
-//					networkView.render();
-//				}
-//			});
+			var studyData = new CustomStudyData({method: method,
+				size: size,
+				samples: samples});
+
+			studyData.fetch({
+				success: function()
+				{
+					var data = {nodes: studyData.attributes.nodes,
+						edges: studyData.attributes.edges};
+
+					var model = {data: data, edgeColor: color, nodeLabel: label};
+
+					var networkOpts = {el: "#main-network-view", model: model};
+					var networkView = new NetworkView(networkOpts);
+					self.networkView = networkView;
+
+					networkView.render();
+				},
+				error: function()
+				{
+					// TODO display an error message to the user
+					console.log("error retrieving custom data...");
+				}
+			});
 		});
 	}
 });

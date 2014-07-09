@@ -95,11 +95,10 @@ public class StudyController
 		return new ResponseEntity<String>(response, headers, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "custom/{study}/{method}/{size}/{samples}",
+	@RequestMapping(value = "custom/{method}/{size}/{samples}",
 	                method = {RequestMethod.GET, RequestMethod.POST},
 	                headers = "Accept=application/json")
-	public ResponseEntity<String> getCustomData(@PathVariable String study,
-			@PathVariable String method,
+	public ResponseEntity<String> getCustomData(@PathVariable String method,
 			@PathVariable Integer size,
 			@PathVariable String samples)
 	{
@@ -108,7 +107,7 @@ public class StudyController
 
 		String response;
 		try {
-			response = customContextServe.getStudyData(study, method, size, samples);
+			response = customContextServe.getStudyData(method, size, samples);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), headers, HttpStatus.BAD_REQUEST);
 		}

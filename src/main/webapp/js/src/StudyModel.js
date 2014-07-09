@@ -27,6 +27,21 @@ var StudyData = Backbone.Model.extend({
     }
 });
 
+var CustomStudyData = Backbone.Model.extend({
+	initialize: function(attributes)
+	{
+		this.edges = attributes.edges;
+        this.nodes = attributes.nodes;
+	},
+	url: function()
+	{
+		return "study/custom/" +
+			this.get("method") + "/" +
+			this.get("size") + "/" +
+			this.get("samples");
+    }
+});
+
 var CancerStudies = Backbone.Collection.extend({
     model: CancerStudy,
     url: "study/list"

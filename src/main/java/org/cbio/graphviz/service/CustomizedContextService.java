@@ -48,8 +48,7 @@ public class CustomizedContextService extends CancerContextService
 
 	private RConnection conn = null;
 
-	public String getStudyData(String study,
-			String method,
+	public String getStudyData(String method,
 			Integer size,
 			String samples)
 		throws REXPMismatchException, RserveException, IOException
@@ -57,7 +56,7 @@ public class CustomizedContextService extends CancerContextService
 		JSONSerializer jsonSerializer = new JSONSerializer().exclude("*.class");
 
 		CytoscapeJsGraph graph = new CytoscapeJsGraph();
-		List<CytoscapeJsEdge> edges = this.getEdgeList(study, method, size, samples);
+		List<CytoscapeJsEdge> edges = this.getEdgeList(method, size, samples);
 		List<CytoscapeJsNode> nodes = this.getNodeList(edges);
 
 		graph.setEdges(edges);
@@ -66,8 +65,7 @@ public class CustomizedContextService extends CancerContextService
 		return jsonSerializer.deepSerialize(graph);
 	}
 
-	protected List<CytoscapeJsEdge> getEdgeList(String study,
-			String method,
+	protected List<CytoscapeJsEdge> getEdgeList(String method,
 			Integer size,
 			String samples)
 		throws REXPMismatchException, RserveException, IOException
@@ -142,7 +140,7 @@ public class CustomizedContextService extends CancerContextService
 	protected String generateSampleList(String samples)
 	{
 		StringBuilder sb = new StringBuilder();
-		String[] sampleList = samples.split("\\|");
+		String[] sampleList = samples.trim().split("\\|");
 
 		for (int i = 0; i < sampleList.length; i++)
 		{
