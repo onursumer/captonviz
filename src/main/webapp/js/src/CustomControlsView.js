@@ -10,7 +10,7 @@ var CustomControlsView = Backbone.View.extend({
 		var methodOptions = [];
 
 		methodOptions.push(_.template($("#select_item_template").html(),
-			{selectId: "NA", selectName: "NA"}));
+			{selectId: "pearsonCor", selectName: "Pearson"}));
 
 		var variables = {methodOptions: methodOptions.join("")};
 
@@ -125,8 +125,21 @@ var CustomControlsView = Backbone.View.extend({
 				},
 				error: function()
 				{
-					// TODO display an error message to the user
-					console.log("error retrieving custom data...");
+					// display an error message to the user
+
+					var message = "Error retrieving customized data for the given sample list.<br>" +
+					              "Please make sure that entered sample list is valid.";
+
+					var variables = {errorMessage: message};
+
+					// compile the template using underscore
+					var template = _.template(
+						$("#error_template").html(),
+						variables);
+
+					$("#main-network-view").html(template);
+
+					self.networkView = null;
 				}
 			});
 		});

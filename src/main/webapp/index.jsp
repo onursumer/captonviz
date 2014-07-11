@@ -264,6 +264,10 @@
 		</div>
 	</script>
 
+	<script type="text/template" id="error_template">
+		<div class="error-message">{{errorMessage}}</div>
+	</script>
+
 	<div class="palette-silver">
 		<div class="container">
 			<div id="pcviz-headline" class="pcviz-headline">

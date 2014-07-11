@@ -10,3 +10,10 @@
 .demo-panel-title {
 	padding-top: 6px;
 }
+
+.error-message {
+	background: #e74c3c;
+	color: #EFEFEF;
+	padding: 0.5em;
+	font-weight: bold;
+}
