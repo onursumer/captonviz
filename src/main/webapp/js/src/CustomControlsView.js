@@ -8,9 +8,13 @@ var CustomControlsView = Backbone.View.extend({
 
 		// TODO actual method option names...
 		var methodOptions = [];
+		var selectTemplateFn = _.template($("#select_item_template").html());
 
-		methodOptions.push(_.template($("#select_item_template").html(),
-			{selectId: "pearsonCor", selectName: "Pearson"}));
+		methodOptions.push(selectTemplateFn({selectId: "spearmanCor", selectName: "Spearman"}));
+		methodOptions.push(selectTemplateFn({selectId: "genenet", selectName: "Genenet"}));
+		methodOptions.push(selectTemplateFn({selectId: "ridgenet", selectName: "Ridgenet"}));
+		methodOptions.push(selectTemplateFn({selectId: "lassonet", selectName: "Lassonet"}));
+		methodOptions.push(selectTemplateFn({selectId: "aracne_m", selectName: "Aracne_m"}));
 
 		var variables = {methodOptions: methodOptions.join("")};
 

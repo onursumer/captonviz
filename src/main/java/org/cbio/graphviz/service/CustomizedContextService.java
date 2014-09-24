@@ -46,6 +46,19 @@ public class CustomizedContextService extends CancerContextService
 		this.rppaDataResource = rppaDataResource;
 	}
 
+	// source file for the custom R functions
+	private Resource rFunctionResource;
+
+	public Resource getrFunctionResource()
+	{
+		return rFunctionResource;
+	}
+
+	public void setrFunctionResource(Resource rFunctionResource)
+	{
+		this.rFunctionResource = rFunctionResource;
+	}
+
 	private RConnection conn = null;
 
 	public String getStudyData(String method,
@@ -79,15 +92,45 @@ public class CustomizedContextService extends CancerContextService
 		c.voidEval("mx <- mx[!is.na(mx)];");
 		c.voidEval("filtered <- dataMatrix[mx,];");
 		// calculate correlation
-		c.voidEval("mat <- cor(filtered, method='pearson');");
-		c.voidEval("res <- ggm.test.edges(mat, verbose=FALSE, plot=FALSE);");
+
+		if (method.equalsIgnoreCase("spearmanCor"))
+		{
+			c.voidEval("res <- cor(filtered, method='spearman');");
+			c.voidEval("edges <- ggm.test.edges(res, verbose=FALSE, plot=FALSE)[,1:3];");
+		}
+		else if (method.equalsIgnoreCase("genenet"))
+		{
+			c.voidEval("res <- ggm.estimate.pcor(filtered);");
+			c.voidEval("edges <- ggm.test.edges(res, verbose=FALSE, plot=FALSE)[,1:3];");
+		}
+		else if (method.equalsIgnoreCase("ridgenet"))
+		{
+			c.voidEval("res <- ridge.net.vLambda(filtered, countLambda=250, k=5);");
+			c.voidEval("edges <- ggm.test.edges(res$pcor, verbose=FALSE, plot=FALSE)[,1:3];");
+		}
+		else if (method.equalsIgnoreCase("lassonet"))
+		{
+			c.voidEval("res <- lasso.net.vLambda(filtered, lambda=0.1);");
+			c.voidEval("edges <- ggm.test.edges(res$pcor, verbose=FALSE, plot=FALSE)[,1:3];");
+		}
+		else if (method.equalsIgnoreCase("aracne_m"))
+		{
+			c.voidEval("mi <- knnmi.all(t(filtered), k=5);");
+			c.voidEval("res <- aracne.m(mi, tau=0.3);");
+			c.voidEval("edges <- getEdges(res)[,c(3,1,2)];");
+		}
+		else
+		{
+			// TODO invalid/unknown method
+		}
+
 		c.voidEval("prots <- colnames(dataMatrix);");
 
-		// TODO create an edge list to visualize...
 		//String[] res = c.eval("cbind(prot1=prots[res[,2]], prot2=prots[res[,3]]);").asStrings();
-		String[] sources = c.eval("cbind(prot1=prots[res[,2]]);").asStrings();
-		String[] targets = c.eval("cbind(prot1=prots[res[,3]]);").asStrings();
+		String[] sources = c.eval("cbind(prot1=prots[edges[,2]]);").asStrings();
+		String[] targets = c.eval("cbind(prot1=prots[edges[,3]]);").asStrings();
 
+		// create an edge list to visualize
 		List<CytoscapeJsEdge> edges = new ArrayList<>();
 
 		for (int i = 0;
@@ -126,8 +169,14 @@ public class CustomizedContextService extends CancerContextService
 			RConnection c = new RConnection();
 			this.conn = c;
 
-			// load required lib
+			// load required libraries
 			c.voidEval("library(parcor);");
+			c.voidEval("library(parmigene);");
+
+			// load required source files
+			String functions = this.getrFunctionResource().getFile().getAbsolutePath();
+
+			c.voidEval("source('" + functions + "');");
 
 			// load data file
 			String input = this.getRppaDataResource().getFile().getAbsolutePath();
