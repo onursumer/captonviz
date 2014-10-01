@@ -28,8 +28,10 @@ var NetworkView = Backbone.View.extend({
 	        .selector("node")
 	        .css({
 	            "content": "data(" + self.model.nodeLabel +")",
+	            "width": 20,
+	            "height": 20,
 	            //"shape": "data(shape)",
-	            "border-width": 3,
+	            "border-width": 2,
 	            //"background-color": "mapData(altered, 0, 1, #DDDDDD, red)",
 				"background-color": "#DDDDDD",
 	            "border-color": "#555",
