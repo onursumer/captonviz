@@ -136,6 +136,12 @@ var ControlsView = Backbone.View.extend({
 		var submit = self.$el.find("#visualize-study");
 
 		submit.click(function() {
+
+			// display loader message before actually loading the data
+			// it will be replaced by the network view once data is fetched
+			$("#main-network-view").html(_.template(
+				$("#loader_template").html(), {}));
+
 			var studyId = studyBox.val();
 			var method = methodBox.val();
 			var size = edgeSlider.slider("value");

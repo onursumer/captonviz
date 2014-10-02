@@ -107,11 +107,14 @@ var CustomControlsView = Backbone.View.extend({
 			var label = labelBox.val();
 			var samples = sampleInput.val().trim().split(/\s+/).join("|");
 
-			// TODO fetch custom study data (add new model & collection classes)
-
 			var studyData = new CustomStudyData({method: method,
 				size: size,
 				samples: samples});
+
+			// display loader message before actually loading the data
+			// it will be replaced by the network view once data is fetched
+			$("#main-network-view").html(_.template(
+				$("#loader_template").html(), {}));
 
 			studyData.fetch({
 				success: function()

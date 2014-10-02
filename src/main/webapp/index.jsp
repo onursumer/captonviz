@@ -221,12 +221,9 @@
 	<script type="text/template" id="main-view-template">
 		<div class="row mainview">
 			<div class="span8">  <!-- cytoscape view -->
-				<!--div class="network-loading">
-					<h4>Loading network...</h4>
-					<img src="images/loading.gif" alt="loading network...">
-				</div-->
 				<div id="network-container">
-					<div id="main-network-view"></div>
+					<div id="main-network-view">
+					</div>
 					<div class="row" id="control-panels">
 						<div class="span6 offset1">
 							<div class="btn-toolbar">
@@ -266,6 +263,13 @@
 
 	<script type="text/template" id="error_template">
 		<div class="error-message">{{errorMessage}}</div>
+	</script>
+
+	<script type="text/template" id="loader_template">
+		<div class="network-loading">
+			<h4>Loading network...</h4>
+			<img src="images/loading.gif" alt="loading network...">
+		</div>
 	</script>
 
 	<div class="palette-silver">
