@@ -87,6 +87,7 @@
 	<script src="js/lib/store.js"></script>
 	<script src="js/lib/jquery.scrollTo-1.4.3.1-min.js"></script>
 	<script src="js/lib/js_cols.min.js"></script>
+	<script src="js/lib/d3.min.js"></script>
 
 	<!--[if lt IE 8]>
 	<script src="js/lib/icon-font-ie7.js"></script>
@@ -96,8 +97,10 @@
 	<script src="js/src/NetworkView.js"></script>
 	<script src="js/src/ControlsView.js"></script>
 	<script src="js/src/CustomControlsView.js"></script>
+	<script src="js/src/HelpView.js"></script>
 	<script src="js/src/MainView.js"></script>
 	<script src="js/src/StudyModel.js"></script>
+	<script src="js/src/Legend.js"></script>
 
 	<!-- PCViz and its components -->
 	<script src="js/extensions/cytoscape.layout.pcviz.arbor.js"></script>
@@ -246,6 +249,9 @@
 					<li><a href="#custom-settings" id="menu-customized-network" data-toggle="tab">
 						<span class="fui-settings-16"></span> Custom</a>
 					</li>
+					<li><a href="#vis-help" id="menu-help" data-toggle="tab">
+						<span class="fui-settings-16"></span> Help</a>
+					</li>
 				</ul>
 			</div>
 			<div class="span4">
@@ -255,6 +261,9 @@
 					</div>
 					<div class="tab-pane fade" id="custom-settings">
 						<!-- customized controls view -->
+					</div>
+					<div class="tab-pane fade" id="vis-help">
+						<!-- help text, legend, etc -->
 					</div>
 				</div>
 			</div>
@@ -270,6 +279,11 @@
 			<h4>Loading network...</h4>
 			<img src="images/loading.gif" alt="loading network...">
 		</div>
+	</script>
+
+	<script type="text/template" id="help_template">
+		<h4>Edge Legend</h4>
+		<div class="legend"></div>
 	</script>
 
 	<div class="palette-silver">
