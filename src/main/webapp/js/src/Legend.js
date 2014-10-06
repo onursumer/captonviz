@@ -2,10 +2,14 @@ function Legend(options)
 {
 	var _defaultOpts = {
 		el: "#legend", // container id
-		elWidth: 200,  // total width
-		elHeight: 200, // total height
+		elWidth: 240,  // total width
+		elHeight: 120, // total height
+		paddingTop: 10,   // top padding
+		paddingBottom: 0, // bottom padding
+		paddingLeft: 0,   // left padding
+		paddingRight: 0,  // right padding
 		orientation: "vertical", // "horizontal" or "vertical"
-		itemFont: 'inherit',    // font type of the y-axis label
+		itemFont: 'inherit',       // font type of the y-axis label
 		itemFontColor: "#2E3436",  // font color of the y-axis label
 		itemFontSize: "16px",      // font size of y-axis label
 		itemFontWeight: "normal",  // font weight of y-axis label
@@ -13,7 +17,7 @@ function Legend(options)
 		itemHeight: 10,  // height of the color box
 		itemPadding: 10, // padding between legend elements
 		labelPadding: 5, // padding between the box and the label
-		items: []        // color and name values like {name: "unknown", color: "#000000"}
+		items: [] // color and name values like {name: "unknown", color: "#000000"}
 	};
 
 	// merge options with default options to use defaults for missing values
@@ -66,8 +70,8 @@ function Legend(options)
 	{
 		// TODO if (options.orientation == "horizontal")...
 
-		var x = 0;
-		var y = 0;
+		var x = 0 + options.paddingLeft;
+		var y = 0 + options.paddingTop;
 
 		_.each(options.items, function(item, idx) {
 			var text = item.name;

@@ -21,12 +21,14 @@ var HelpView = Backbone.View.extend({
 		var self = this;
 
 		// add legend component
-		// TODO replace items with actual values...
 		var help = new Legend({
 			el: self.$el.find(".legend"),
 			items: [
-				{name: "Unknown", color: "#666666"},
-				{name: "Missing", color: "#A056F0"}
+				{name: "Edge Sign (1)", color: "#FF0000"},
+				{name: "Edge Sign (-1)", color: "#0000FF"},
+				{name: "In Pathway Commons (PC)", color: "#11FA34"},
+				{name: "Not In PC", color: "#7F7F7F"},
+				{name: "Default/Unknown", color: "#444"}
 			]});
 
 		help.init();
