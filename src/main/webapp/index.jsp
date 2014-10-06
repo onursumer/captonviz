@@ -81,9 +81,9 @@
 	<script src="js/lib/jquery.fancybox-1.3.4.pack.js"></script>
 	<script src="js/lib/jquery.easing-1.3.pack.js"></script>
 	<script src="js/lib/jquery.expander.min.js"></script>
-	<!--script src="js/lib/noty/jquery.noty.js"></script>
+	<script src="js/lib/noty/jquery.noty.js"></script>
 	<script src="js/lib/noty/layouts/bottomRight.js"></script>
-	<script src="js/lib/noty/themes/noty.pcviz.theme.js"></script-->
+	<script src="js/lib/noty/themes/noty.pcviz.theme.js"></script>
 	<script src="js/lib/store.js"></script>
 	<script src="js/lib/jquery.scrollTo-1.4.3.1-min.js"></script>
 	<script src="js/lib/js_cols.min.js"></script>
@@ -101,6 +101,7 @@
 	<script src="js/src/MainView.js"></script>
 	<script src="js/src/StudyModel.js"></script>
 	<script src="js/src/Legend.js"></script>
+	<script src="js/src/NotyView.js"></script>
 
 	<!-- PCViz and its components -->
 	<script src="js/extensions/cytoscape.layout.pcviz.arbor.js"></script>
@@ -268,6 +269,15 @@
 				</div>
 			</div>
 		</div>
+	</script>
+
+	<script type="text/template" id="noty-network-loaded-template">
+		Found {{numberOfSamples}} samples in RPPA data.
+	</script>
+
+	<script type="text/template" id="noty-invalid-sample-template">
+		Following sample(s) cannot be found in RPPA data:<br>
+		{{sampleList}}
 	</script>
 
 	<script type="text/template" id="error_template">

@@ -25,12 +25,12 @@ public class CustomizedContextService extends CancerContextService
 	// source file for the pancan data
 	private Resource dataResource;
 
-	public Resource getDataResource() {
+	public Resource getPancanDataResource() {
 		return dataResource;
 	}
 
-	public void setDataResource(Resource dataResource) {
-		this.dataResource = dataResource;
+	public void setPancanDataResource(Resource pancanDataResource) {
+		this.dataResource = pancanDataResource;
 	}
 
 	// source file for the rppa data

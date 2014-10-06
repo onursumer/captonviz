@@ -98,27 +98,29 @@ var CustomControlsView = Backbone.View.extend({
 			edgeSlider.slider({value: newVal});
 		});
 
-		var submit = self.$el.find("#visualize-study");
+		// displays an error message to the user (on the network view)
+		var displayErrorMessage = function(message)
+		{
+			var variables = {errorMessage: message};
 
-		submit.click(function() {
-			var method = methodBox.val();
-			var size = edgeSlider.slider("value");
-			var color = edgeBox.val();
-			var label = labelBox.val();
-			var samples = sampleInput.val().trim().split(/\s+/).join("|");
+			// compile the template using underscore
+			var template = _.template(
+				$("#error_template").html(),
+				variables);
 
-			var studyData = new CustomStudyData({method: method,
-				size: size,
-				samples: samples});
+			$("#main-network-view").html(template);
 
-			// display loader message before actually loading the data
-			// it will be replaced by the network view once data is fetched
-			$("#main-network-view").html(_.template(
-				$("#loader_template").html(), {}));
+			self.networkView = null;
+		};
 
+		// fetches study data from server
+		var fetchStudyData = function(studyData, color, label)
+		{
 			studyData.fetch({
-				success: function()
+				success: function(collection, response, options)
 				{
+					// TODO display a success (noty) message...
+
 					var data = {nodes: studyData.attributes.nodes,
 						edges: studyData.attributes.edges};
 
@@ -130,25 +132,52 @@ var CustomControlsView = Backbone.View.extend({
 
 					networkView.render();
 				},
-				error: function()
+				error: function(collection, response, options)
 				{
-					// display an error message to the user
-
-					var message = "Error retrieving customized data for the given sample list.<br>" +
-					              "Please make sure that entered sample list is valid.";
-
-					var variables = {errorMessage: message};
-
-					// compile the template using underscore
-					var template = _.template(
-						$("#error_template").html(),
-						variables);
-
-					$("#main-network-view").html(template);
-
-					self.networkView = null;
+					displayErrorMessage("Error retrieving customized data.<br>");
 				}
 			});
+		};
+
+		var submit = self.$el.find("#visualize-study");
+
+		submit.click(function() {
+			var method = methodBox.val();
+			var size = edgeSlider.slider("value");
+			var color = edgeBox.val();
+			var label = labelBox.val();
+			var samples = sampleInput.val().trim().split(/\s+/).join("|");
+
+			if (samples == null ||
+			    samples.length == 0)
+			{
+				// empty sample list...
+				// TODO display a warning (noty) message?
+				return;
+			}
+
+			// validate input sample list
+			var validationData = new ValidationData({samples: samples});
+
+			validationData.fetch({
+				success: function(collection, response, options)
+				{
+					var studyData = new CustomStudyData({method: method,
+						size: size,
+						samples: samples});
+
+					fetchStudyData(studyData, color, label);
+				},
+				error: function(collection, response, options)
+				{
+					displayErrorMessage("Error validating sample list.<br>");
+				}
+			});
+
+			// display loader message before actually loading the data
+			// it will be replaced by the network view once data is fetched
+			$("#main-network-view").html(_.template(
+				$("#loader_template").html(), {}));
 		});
 	}
 });

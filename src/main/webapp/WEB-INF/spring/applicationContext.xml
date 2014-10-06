@@ -16,8 +16,12 @@
 		<property name="edgeListResource" value="${edgeList.location}"/>
 	</bean>
 
+	<bean class="org.cbio.graphviz.service.SampleValidationService" id="sampleValidationService">
+		<property name="pancanDataResource" value="${pancanData.location}"/>
+	</bean>
+
 	<bean class="org.cbio.graphviz.service.CustomizedContextService" id="customContextServe">
-		<property name="dataResource" value="${pancanData.location}"/>
+		<property name="pancanDataResource" value="${pancanData.location}"/>
 		<property name="rppaDataResource" value="${rppaData.location}"/>
 		<property name="rFunctionResource" value="${rFunction.location}"/>
 	</bean>

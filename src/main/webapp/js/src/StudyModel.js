@@ -12,6 +12,18 @@ var Method = Backbone.Model.extend({
 	}
 });
 
+var ValidationData = Backbone.Model.extend({
+	initialize: function(attributes)
+	{
+		this.validSamples = attributes.validSamples;
+		this.invalidSamples = attributes.invalidSamples;
+	},
+	url: function()
+	{
+		return "validate/samples/" + this.get("samples");
+	}
+});
+
 var StudyData = Backbone.Model.extend({
 	initialize: function(attributes)
 	{
