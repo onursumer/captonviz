@@ -153,11 +153,11 @@ var ControlsView = Backbone.View.extend({
 				size: size});
 
 			studyData.fetch({
-				success: function()
+				success: function(collection, response, options)
 				{
 					//var data = {nodes: studyData.nodes, edges: studyData.edges};
-					var data = {nodes: studyData.attributes.nodes,
-						edges: studyData.attributes.edges};
+					var data = {nodes: response.nodes,
+						edges: response.edges};
 
 					var model = {data: data, edgeColor: color, nodeLabel: label};
 
@@ -166,6 +166,11 @@ var ControlsView = Backbone.View.extend({
 					self.networkView = networkView;
 
 					networkView.render();
+				},
+				error: function(collection, response, options)
+				{
+					ViewUtil.displayErrorMessage(
+						"Error retrieving data.");
 				}
 			});
 		});

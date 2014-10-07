@@ -102,6 +102,7 @@
 	<script src="js/src/StudyModel.js"></script>
 	<script src="js/src/Legend.js"></script>
 	<script src="js/src/NotyView.js"></script>
+	<script src="js/src/ViewUtil.js"></script>
 
 	<!-- PCViz and its components -->
 	<script src="js/extensions/cytoscape.layout.pcviz.arbor.js"></script>

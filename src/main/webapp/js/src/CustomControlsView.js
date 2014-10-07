@@ -97,23 +97,6 @@ var CustomControlsView = Backbone.View.extend({
 			edgeSlider.slider({value: newVal});
 		});
 
-		// displays an error message to the user
-		var displayErrorMessage = function(message)
-		{
-			$("#main-network-view").empty();
-			self.networkView = null;
-
-			var notyView = new NotyView({
-				template: "#noty-error-msg-template",
-				error: true,
-				model: {
-					errorMsg: message
-				}
-			});
-
-			notyView.render();
-		};
-
 		// fetches study data from server
 		var fetchStudyData = function(studyData, validation, color, label)
 		{
@@ -153,7 +136,8 @@ var CustomControlsView = Backbone.View.extend({
 				},
 				error: function(collection, response, options)
 				{
-					displayErrorMessage("Error retrieving customized data.<br>");
+					ViewUtil.displayErrorMessage(
+						"Error retrieving customized data.");
 				}
 			});
 		};
@@ -171,7 +155,8 @@ var CustomControlsView = Backbone.View.extend({
 			    samples.length == 0)
 			{
 				// empty sample list...
-				displayErrorMessage("Please enter a list of samples into the input field above.");
+				ViewUtil.displayErrorMessage(
+					"Please enter a list of samples into the input field above.");
 				return;
 			}
 
@@ -190,13 +175,13 @@ var CustomControlsView = Backbone.View.extend({
 
 						if (valid == 0)
 						{
-							displayErrorMessage(
+							ViewUtil.displayErrorMessage(
 								"None of the samples entered are valid.<br>" +
 								message);
 						}
 						else
 						{
-							displayErrorMessage(
+							ViewUtil.displayErrorMessage(
 								"You have entered only " +
 								response.validSamples.length +
 								" valid sample(s).<br>" +
@@ -214,7 +199,8 @@ var CustomControlsView = Backbone.View.extend({
 				},
 				error: function(collection, response, options)
 				{
-					displayErrorMessage("Error validating sample list.");
+					ViewUtil.displayErrorMessage(
+						"Error validating sample list.");
 				}
 			});
 
