@@ -22,6 +22,7 @@
 
 	<bean class="org.cbio.graphviz.service.CustomizedContextService" id="customContextServe">
 		<property name="pancanDataResource" value="${pancanData.location}"/>
+		<property name="pcDataResource" value="${pcData.location}"/>
 		<property name="rppaDataResource" value="${rppaData.location}"/>
 		<property name="rFunctionResource" value="${rFunction.location}"/>
 	</bean>

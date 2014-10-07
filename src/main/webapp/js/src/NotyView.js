@@ -30,7 +30,12 @@ var NotyView = Backbone.View.extend({
         this.model["text"] = _.template($(this.options.template).html(), this.model);
 
         if(this.options.warning != undefined && this.options.warning)
-            this.model["type"] = "warning";
+        {
+	        this.model["type"] = "warning";
+	        this.model["closeWith"] = ["button"];
+	        // TODO find a better solution to add a close icon...
+	        this.model["template"] = '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"><b>x</b></div></div>';
+        }
 
         if(this.options.error != undefined && this.options.error)
             this.model["type"] = "error";

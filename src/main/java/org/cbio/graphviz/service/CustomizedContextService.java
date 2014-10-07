@@ -46,6 +46,19 @@ public class CustomizedContextService extends CancerContextService
 		this.rppaDataResource = rppaDataResource;
 	}
 
+	// source file for the PC data
+	private Resource pcDataResource;
+
+	public Resource getPcDataResource()
+	{
+		return pcDataResource;
+	}
+
+	public void setPcDataResource(Resource pcDataResource)
+	{
+		this.pcDataResource = pcDataResource;
+	}
+
 	// source file for the custom R functions
 	private Resource rFunctionResource;
 
@@ -127,8 +140,21 @@ public class CustomizedContextService extends CancerContextService
 		c.voidEval("prots <- colnames(dataMatrix);");
 
 		//String[] res = c.eval("cbind(prot1=prots[res[,2]], prot2=prots[res[,3]]);").asStrings();
-		String[] sources = c.eval("cbind(prot1=prots[edges[,2]]);").asStrings();
-		String[] targets = c.eval("cbind(prot1=prots[edges[,3]]);").asStrings();
+		String[] sources = c.eval("prots[edges[,2]];").asStrings();
+		String[] targets = c.eval("prots[edges[,3]];").asStrings();
+
+		// Ensure alphabetical order in computational predictions
+		c.voidEval("ce <- cbind(prots[edges[,2]],prots[edges[,3]]);");
+		c.voidEval("ind <- which(!(ce[,1] < ce[,2]));");
+		c.voidEval("ce[ind,] <- ce[ind,c(2,1)];");
+		// Combine the edges with a dot
+		c.voidEval("pcdot <- paste(pcData[,1],pcData[,2],sep='.');");
+		c.voidEval("cedot <- paste(ce[,1],ce[,2],sep='.');");
+		c.voidEval("is.match <- match(cedot,pcdot);");
+		c.voidEval("is.match[!is.na(is.match)] = 1;");
+		c.voidEval("is.match[is.na(is.match)] = 0;");
+
+		int[] inPc = c.eval("is.match;").asIntegers();
 
 		// create an edge list to visualize
 		List<CytoscapeJsEdge> edges = new ArrayList<>();
@@ -145,6 +171,8 @@ public class CustomizedContextService extends CancerContextService
 
 			edge.setProperty(PropertyKey.PROT1, sources[i]);
 			edge.setProperty(PropertyKey.PROT2, targets[i]);
+
+			edge.setProperty(PropertyKey.INPC, inPc[i]);
 
 			edges.add(edge);
 		}
@@ -178,9 +206,12 @@ public class CustomizedContextService extends CancerContextService
 
 			c.voidEval("source('" + functions + "');");
 
-			// load data file
-			String input = this.getRppaDataResource().getFile().getAbsolutePath();
-			c.voidEval("dataMatrix <- as.matrix(readRDS('" + input + "'));");
+			// load data files
+			String rppaData = this.getRppaDataResource().getFile().getAbsolutePath();
+			String pcData = this.getPcDataResource().getFile().getAbsolutePath();
+
+			c.voidEval("dataMatrix <- as.matrix(readRDS('" + rppaData + "'));");
+			c.voidEval("pcData <- readRDS('" + pcData + "');");
 		}
 
 		return this.conn;
