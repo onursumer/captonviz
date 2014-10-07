@@ -6,7 +6,6 @@ var CustomControlsView = Backbone.View.extend({
 		//var studies = new CancerStudies();
 		//var methods = new Methods();
 
-		// TODO actual method option names...
 		var methodOptions = [];
 		var selectTemplateFn = _.template($("#select_item_template").html());
 
@@ -114,15 +113,33 @@ var CustomControlsView = Backbone.View.extend({
 		};
 
 		// fetches study data from server
-		var fetchStudyData = function(studyData, color, label)
+		var fetchStudyData = function(studyData, validation, color, label)
 		{
 			studyData.fetch({
 				success: function(collection, response, options)
 				{
-					// TODO display a success (noty) message...
+					// display notification for validated samples
+					(new NotyView({template: "#noty-network-loaded-template",
+						model: {
+							numberOfSamples: validation.validSamples.length,
+							type: "success"
+						}
+					})).render();
 
-					var data = {nodes: studyData.attributes.nodes,
-						edges: studyData.attributes.edges};
+					if (validation.invalidSamples.length > 0)
+					{
+						(new NotyView({template: "#noty-invalid-sample-template",
+							warning: true,
+							timeout: 20000,
+							model: {
+								numberOfSamples: validation.invalidSamples.length,
+								sampleList: validation.invalidSamples.sort().join(", ")
+							}
+						})).render();
+					}
+
+					var data = {nodes: response.nodes,
+						edges: response.edges};
 
 					var model = {data: data, edgeColor: color, nodeLabel: label};
 
@@ -162,11 +179,36 @@ var CustomControlsView = Backbone.View.extend({
 			validationData.fetch({
 				success: function(collection, response, options)
 				{
-					var studyData = new CustomStudyData({method: method,
-						size: size,
-						samples: samples});
+					// TODO customize threshold
+					var threshold = 5;
+					var valid = response.validSamples.length;
+					if (valid < threshold)
+					{
+						var message = "Please enter at least " + threshold + " valid samples.<br>";
 
-					fetchStudyData(studyData, color, label);
+						if (valid == 0)
+						{
+							displayErrorMessage(
+								"None of the samples entered are valid.<br>" +
+								message);
+						}
+						else
+						{
+							displayErrorMessage(
+								"You have entered only " +
+								response.validSamples.length +
+								" valid sample(s).<br>" +
+								message);
+						}
+					}
+					else
+					{
+						var studyData = new CustomStudyData({method: method,
+							                                    size: size,
+							                                    samples: samples});
+
+						fetchStudyData(studyData, response, color, label);
+					}
 				},
 				error: function(collection, response, options)
 				{

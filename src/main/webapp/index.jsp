@@ -272,11 +272,11 @@
 	</script>
 
 	<script type="text/template" id="noty-network-loaded-template">
-		Found {{numberOfSamples}} samples in RPPA data.
+		Found <b>{{numberOfSamples}} samples</b> in RPPA data.
 	</script>
 
 	<script type="text/template" id="noty-invalid-sample-template">
-		Following sample(s) cannot be found in RPPA data:<br>
+		<b>{{numberOfSamples}} sample(s)</b> cannot be found in RPPA data:<br>
 		{{sampleList}}
 	</script>
 
