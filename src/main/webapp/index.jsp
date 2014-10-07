@@ -280,6 +280,10 @@
 		{{sampleList}}
 	</script>
 
+	<script type="text/template" id="noty-error-msg-template">
+		{{errorMsg}}
+	</script>
+
 	<script type="text/template" id="error_template">
 		<div class="error-message">{{errorMessage}}</div>
 	</script>

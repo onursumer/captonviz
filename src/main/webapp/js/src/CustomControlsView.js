@@ -97,19 +97,21 @@ var CustomControlsView = Backbone.View.extend({
 			edgeSlider.slider({value: newVal});
 		});
 
-		// displays an error message to the user (on the network view)
+		// displays an error message to the user
 		var displayErrorMessage = function(message)
 		{
-			var variables = {errorMessage: message};
-
-			// compile the template using underscore
-			var template = _.template(
-				$("#error_template").html(),
-				variables);
-
-			$("#main-network-view").html(template);
-
+			$("#main-network-view").empty();
 			self.networkView = null;
+
+			var notyView = new NotyView({
+				template: "#noty-error-msg-template",
+				error: true,
+				model: {
+					errorMsg: message
+				}
+			});
+
+			notyView.render();
 		};
 
 		// fetches study data from server
@@ -169,7 +171,7 @@ var CustomControlsView = Backbone.View.extend({
 			    samples.length == 0)
 			{
 				// empty sample list...
-				// TODO display a warning (noty) message?
+				displayErrorMessage("Please enter a list of samples into the input field above.");
 				return;
 			}
 
@@ -184,7 +186,7 @@ var CustomControlsView = Backbone.View.extend({
 					var valid = response.validSamples.length;
 					if (valid < threshold)
 					{
-						var message = "Please enter at least " + threshold + " valid samples.<br>";
+						var message = "Please enter at least " + threshold + " valid samples.";
 
 						if (valid == 0)
 						{
@@ -212,7 +214,7 @@ var CustomControlsView = Backbone.View.extend({
 				},
 				error: function(collection, response, options)
 				{
-					displayErrorMessage("Error validating sample list.<br>");
+					displayErrorMessage("Error validating sample list.");
 				}
 			});
 
