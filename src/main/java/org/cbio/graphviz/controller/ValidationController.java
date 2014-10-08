@@ -6,9 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -19,11 +17,11 @@ public class ValidationController
 	@Autowired
 	SampleValidationService sampleValidationService;
 
-	@RequestMapping(value = "samples/{samples}",
+	@RequestMapping(value = "samples",
 	                method = {RequestMethod.GET, RequestMethod.POST},
 	                headers = "Accept=application/json")
 	public ResponseEntity<String> validateSamples(
-			@PathVariable String samples) {
+			@RequestParam("samples") String samples) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");
 

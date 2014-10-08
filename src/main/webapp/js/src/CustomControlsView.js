@@ -101,6 +101,8 @@ var CustomControlsView = Backbone.View.extend({
 		var fetchStudyData = function(studyData, validation, color, label)
 		{
 			studyData.fetch({
+				type: "POST",
+				data: {samples: studyData.get("samples")},
 				success: function(collection, response, options)
 				{
 					// display notification for validated samples
@@ -164,11 +166,14 @@ var CustomControlsView = Backbone.View.extend({
 			var validationData = new ValidationData({samples: samples});
 
 			validationData.fetch({
+				type: "POST",
+				data: {samples: validationData.get("samples")},
 				success: function(collection, response, options)
 				{
 					// TODO customize threshold
 					var threshold = 5;
 					var valid = response.validSamples.length;
+
 					if (valid < threshold)
 					{
 						var message = "Please enter at least " + threshold + " valid samples.";
@@ -191,8 +196,8 @@ var CustomControlsView = Backbone.View.extend({
 					else
 					{
 						var studyData = new CustomStudyData({method: method,
-							                                    size: size,
-							                                    samples: samples});
+							size: size,
+							samples: response.validSamples.join("|")});
 
 						fetchStudyData(studyData, response, color, label);
 					}

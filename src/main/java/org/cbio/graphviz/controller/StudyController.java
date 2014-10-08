@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 
@@ -95,12 +96,12 @@ public class StudyController
 		return new ResponseEntity<String>(response, headers, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "custom/{method}/{size}/{samples}",
+	@RequestMapping(value = "custom/{method}/{size}",
 	                method = {RequestMethod.GET, RequestMethod.POST},
 	                headers = "Accept=application/json")
 	public ResponseEntity<String> getCustomData(@PathVariable String method,
 			@PathVariable Integer size,
-			@PathVariable String samples)
+			@RequestParam String samples)
 	{
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-Type", "application/json; charset=utf-8");

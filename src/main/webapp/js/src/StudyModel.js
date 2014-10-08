@@ -20,7 +20,7 @@ var ValidationData = Backbone.Model.extend({
 	},
 	url: function()
 	{
-		return "validate/samples/" + this.get("samples");
+		return "validate/samples";
 	}
 });
 
@@ -49,8 +49,7 @@ var CustomStudyData = Backbone.Model.extend({
 	{
 		return "study/custom/" +
 			this.get("method") + "/" +
-			this.get("size") + "/" +
-			this.get("samples");
+			this.get("size");
     }
 });
 
