@@ -23,12 +23,13 @@ var HelpView = Backbone.View.extend({
 		// add legend component
 		var help = new Legend({
 			el: self.$el.find(".legend"),
+			orientation: "vertical",
 			items: [
 				{name: "Edge Sign (1)", color: "#FF0000"},
 				{name: "Edge Sign (-1)", color: "#0000FF"},
 				{name: "In Pathway Commons (PC)", color: "#11FA34"},
-				{name: "Not In PC", color: "#7F7F7F"},
-				{name: "Default/Unknown", color: "#444"}
+				{name: "Not In PC", color: "#7F7F7F"}
+				//{name: "Default/Unknown", color: "#444"}
 			]});
 
 		help.init();

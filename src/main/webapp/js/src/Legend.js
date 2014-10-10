@@ -99,7 +99,18 @@ function Legend(options)
 				.style("font-size", options.itemFontSize)
 				.style("font-weight", options.itemFontWeight);
 
-			y += options.itemHeight + options.itemPadding;
+			if (options.orientation == "vertical")
+			{
+				y += options.itemHeight + options.itemPadding;
+			}
+			else if (options.orientation == "horizontal")
+			{
+				// TODO this is an unsafe workaround!
+				// instead use label.node().getComputedTextLength()
+
+				x += (text.length * parseInt(options.itemFontSize)/2) +
+				     options.itemPadding * 2;
+			}
 		});
 	}
 
