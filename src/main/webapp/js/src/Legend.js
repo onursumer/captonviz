@@ -68,8 +68,6 @@ function Legend(options)
 
 	function drawLegend(svg, options)
 	{
-		// TODO if (options.orientation == "horizontal")...
-
 		var x = 0 + options.paddingLeft;
 		var y = 0 + options.paddingTop;
 
@@ -105,11 +103,10 @@ function Legend(options)
 			}
 			else if (options.orientation == "horizontal")
 			{
-				// TODO this is an unsafe workaround!
-				// instead use label.node().getComputedTextLength()
-
-				x += (text.length * parseInt(options.itemFontSize)/2) +
-				     options.itemPadding * 2;
+				x += label.node().getComputedTextLength() +
+				     options.itemWidth +
+				     options.labelPadding +
+				     options.itemPadding;
 			}
 		});
 	}
