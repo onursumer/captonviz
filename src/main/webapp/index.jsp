@@ -42,7 +42,7 @@
 
     <!-- Loading Flat UI -->
     <link href="css/flat-ui.css" rel="stylesheet">
-    <link rel="shortcut icon" href="images/favicon.ico">
+    <!--link rel="shortcut icon" href="images/favicon.ico"-->
 
     <link href="css/jquery.fancybox-1.3.4.css" rel="stylesheet">
 
@@ -250,10 +250,10 @@
 						<span class="fui-menu-16"></span> Default</a>
 					</li>
 					<li><a href="#custom-settings" id="menu-customized-network" data-toggle="tab">
-						<span class="fui-settings-16"></span> Custom</a>
+						<span class="fui-menu-16"></span> Custom</a>
 					</li>
 					<li><a href="#vis-help" id="menu-help" data-toggle="tab">
-						<span class="fui-settings-16"></span> Help</a>
+						<span class="fui-menu-16"></span> Help</a>
 					</li>
 				</ul>
 			</div>
