@@ -103,6 +103,7 @@
 	<script src="js/src/Legend.js"></script>
 	<script src="js/src/NotyView.js"></script>
 	<script src="js/src/ViewUtil.js"></script>
+	<script src="js/src/DataUtil.js"></script>
 
 	<!-- PCViz and its components -->
 	<script src="js/extensions/cytoscape.layout.pcviz.arbor.js"></script>
@@ -229,18 +230,6 @@
 				<div id="network-container">
 					<div id="main-network-view">
 					</div>
-					<!--div class="row" id="control-panels">
-						<div class="span6 offset1">
-							<div class="btn-toolbar">
-								<div class="btn-group network-controls">
-									<a class="btn" id="download-network" href="#"><i class="icon-download-alt"></i> Download</a>
-									<a class="btn" id="embed-network" href="#"><i class="icon-code"></i> Embed</a>
-									<a class="btn" id="refresh-view" href="#"><i class="icon-refresh"></i> Reset</a>
-									<a class="btn" id="full-screen-link" href="#"><i class="icon-resize-full"></i> Full screen</a>
-								</div>
-							</div>
-						</div>
-					</div-->
 					<div class="span6 offset1" id="horizontal-edge-legend"></div>
 				</div>
 			</div>
@@ -267,6 +256,18 @@
 					</div>
 					<div class="tab-pane fade" id="vis-help">
 						<!-- help text, legend, etc -->
+					</div>
+				</div>
+				<div class="row" id="control-panels">
+					<div class="span6">
+						<div class="btn-toolbar">
+							<div class="btn-group network-controls">
+								<a class="btn" id="download-network" href="#"><i class="icon-download-alt"></i> Download</a>
+								<!--a class="btn" id="refresh-view" href="#"><i class="icon-refresh"></i> Refresh</a-->
+								<!--a class="btn" id="embed-network" href="#"><i class="icon-code"></i> Embed</a-->
+								<a class="btn" id="full-screen-link" href="#"><i class="icon-resize-full"></i> Full screen</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

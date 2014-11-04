@@ -42,5 +42,32 @@ var MainView = Backbone.View.extend({
 		defaultView.render();
 		customView.render();
 		helpView.render();
+
+		// add listener for download-network button
+		$("#download-network").click(function(e) {
+			e.preventDefault();
+			//$("#download-network").trigger('click');
+
+			if (window.cy)
+			{
+				DataUtil.requestDownload("download/network/sif",
+					{filename: "network.txt", content: DataUtil.convertToSif(window.cy)});
+
+				// TODO display a message
+				// display notification for validated samples
+//				(new NotyView({template: "#noty-network-downloaded-template",
+//					model: {
+//						numberOfEdges: window.cy.elements(["edge:visible"]).length(),
+//						type: "success"
+//					}
+//				})).render();
+			}
+			else
+			{
+				ViewUtil.displayErrorMessage("No data to download.");
+			}
+		});
+
+		// TODO make full screen button functional
 	}
 });

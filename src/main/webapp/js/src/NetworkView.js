@@ -87,6 +87,7 @@ var NetworkView = Backbone.View.extend({
 			ready: function()
 			{
 				self.cy = this;
+				window.cy = this;
 			}
 		});
 	},

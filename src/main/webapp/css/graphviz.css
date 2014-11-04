@@ -2,6 +2,10 @@
 	margin: 0.25em;
 }
 
+#rightMenuTabs {
+	height: 510px;
+}
+
 #custom-settings {
 	padding-left: 10px;
 	padding-right: 10px;
