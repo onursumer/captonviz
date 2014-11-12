@@ -3,7 +3,7 @@
 }
 
 #rightMenuTabs {
-	height: 510px;
+	height: 550px;
 }
 
 #custom-settings {
@@ -16,6 +16,13 @@
 	padding-right: 10px;
 }
 
+#sample-list-input {
+	resize: none;
+	overflow-y: scroll;
+	height: 60px;
+	width: 240px;
+}
+
 .demo-panel-title {
 	padding-top: 6px;
 }
@@ -25,4 +32,28 @@
 	color: #EFEFEF;
 	padding: 0.5em;
 	font-weight: bold;
+}
+
+.data-file-form {
+	margin: 0;
+}
+.btn-file {
+	position: relative;
+	overflow: hidden;
+	font-size: 100%;
+}
+.btn-file input[type=file] {
+	position: absolute;
+	top: 0;
+	right: 0;
+	min-width: 100%;
+	min-height: 100%;
+	font-size: 100px;
+	text-align: right;
+	/*filter: alpha(opacity=0);*/
+	opacity: 0;
+	outline: none;
+	background: white;
+	cursor: inherit;
+	display: block;
 }

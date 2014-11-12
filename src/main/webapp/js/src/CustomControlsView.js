@@ -144,6 +144,22 @@ var CustomControlsView = Backbone.View.extend({
 			});
 		};
 
+		// trigger a custom 'fileselect' event when a file selected
+		$(document).on('change', '.btn-file :file', function() {
+			var input = $(this);
+
+			var	numFiles = input.get(0).files ? input.get(0).files.length : 1;
+			var	label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+
+			input.trigger('fileselect', [numFiles, label]);
+		});
+
+		var uploadButton =  self.$el.find(".btn-file :file");
+
+		uploadButton.on('fileselect', function(event, numFiles, label) {
+			self.$el.find(".selected-file-info").text("(" + label + ")");
+		});
+
 		var submit = self.$el.find("#visualize-study");
 
 		submit.click(function() {

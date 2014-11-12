@@ -186,7 +186,14 @@
 	<script type="text/template" id="custom_controls_template">
 		<h4 class="demo-panel-title">Samples</h4>
 		<textarea id="sample-list-input" rows="3" class="span3" tabindex="1"></textarea>
-
+		<form class="form-horizontal data-file-form"
+		      enctype="multipart/form-data"
+		      method="post">
+			<span class="file-input btn btn-primary btn-file">
+				Upload Your Own Data <input id="custom-data" name="custom-data" type="file">
+			</span>
+			<div class="selected-file-info"></div>
+		</form>
 		<h4 class="demo-panel-title">Method</h4>
 		<select id="methods-box" class="span3" tabindex="1">
 			{{methodOptions}}
