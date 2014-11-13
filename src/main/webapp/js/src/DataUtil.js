@@ -103,8 +103,30 @@ var DataUtil = (function()
 		return content.join("\n");
 	}
 
+	/**
+	 * Posts (uploads) file data thru ajax query.
+	 *
+	 * @param url       target (servlet) URL
+	 * @param data      file (form) data
+	 * @param callback  callback to be invoked on success
+	 */
+	function postFile(url, data, callback)
+	{
+		$.ajax({
+			url: url,
+			type: 'POST',
+			success: callback,
+			data: data,
+			//Options to tell jQuery not to process data or worry about content-type.
+			cache: false,
+			contentType: false,
+			processData: false
+		});
+	}
+
 	return {
 		requestDownload: requestDownload,
-		convertToSif: convertToSif
+		convertToSif: convertToSif,
+		postFile: postFile
 	};
 })();

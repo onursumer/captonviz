@@ -190,7 +190,7 @@
 		      enctype="multipart/form-data"
 		      method="post">
 			<span class="file-input btn btn-primary btn-file">
-				Upload Your Own Data <input id="custom-data" name="custom-data" type="file">
+				Upload Your Own Data <input class="custom-data" name="data_file" type="file">
 			</span>
 			<div class="selected-file-info"></div>
 		</form>

@@ -18,7 +18,7 @@ public class DownloadController
 	@RequestMapping(value = "network/{type}",
 	                method = {RequestMethod.GET, RequestMethod.POST},
 	                headers = "Accept=application/json")
-	public ResponseEntity<String> dowloadNetwork(@PathVariable String type,
+	public ResponseEntity<String> downloadNetwork(@PathVariable String type,
 			@RequestParam String filename,
 			@RequestParam String content)
 	{
@@ -34,5 +34,4 @@ public class DownloadController
 
 		return new ResponseEntity<String>(content, headers, HttpStatus.OK);
 	}
-
 }

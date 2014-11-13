@@ -169,6 +169,19 @@ var CustomControlsView = Backbone.View.extend({
 			var label = labelBox.val();
 			var samples = sampleInput.val().trim().split(/\s+/).join("|");
 
+			var dataUploadForm = self.$el.find(".data-file-form");
+
+			// TODO upload input data and init view
+			DataUtil.postFile('upload/file',
+				new FormData(dataUploadForm[0]),
+				function(data) {
+					// if no file selected, use the text area input (samples)
+					var input = _.isEmpty(data) ? samples : data;
+
+					// TODO everything should be implemented here...
+					console.log(data);
+			});
+
 			if (samples == null ||
 			    samples.length == 0)
 			{
