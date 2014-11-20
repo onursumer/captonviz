@@ -26,7 +26,7 @@ var MainView = Backbone.View.extend({
 
 		var legend = new Legend({
 			el: self.$el.find("#horizontal-edge-legend"),
-			elWidth: 620,
+			elWidth: 400,
 			elHeight: 30,
 			orientation: "horizontal",
 			items: [ // TODO items: code duplication
@@ -64,10 +64,53 @@ var MainView = Backbone.View.extend({
 			}
 			else
 			{
-				ViewUtil.displayErrorMessage("No data to download.");
+				ViewUtil.displayErrorMessage("Network is not initialized yet.");
 			}
 		});
 
-		// TODO make full screen button functional
+		$("#full-screen-link").click(function(e) {
+			e.preventDefault();
+
+			if (window.cy)
+			{
+				var rightMenuTabs = self.$el.find("#rightMenuTabs");
+				var rightMenuControls = self.$el.find("#rightMenuControls");
+				var mainNetwork = self.$el.find("#main-network-view");
+				var fullHeight = $(window).height() * 4/5 || 800;
+
+				if (rightMenuTabs.is(":visible"))
+				{
+					rightMenuTabs.hide();
+					rightMenuControls.hide();
+
+					self.$el.css({width: "99%", height: "99%"});
+					self.$el.find("div.span8").css({width: "99%", height: "99%"});
+					self.$el.find("div.span8").css({width: "99%", height: "99%"});
+					mainNetwork.css({width: "99%", height: fullHeight});
+					window.cy.resize();
+					window.cy.fit();
+
+					self.$el.find(".full-screen-button-text").text("Standard Size");
+				}
+				else
+				{
+					self.$el.css({width: "", height: ""});
+					self.$el.find("div.span8").css({width: "", height: ""});
+					mainNetwork.css({width: "", height: ""});
+					window.cy.resize();
+					window.cy.fit();
+
+					rightMenuControls.show();
+					rightMenuTabs.show();
+
+					self.$el.find(".full-screen-button-text").text("Full Size");
+				}
+			}
+			else
+			{
+				// no network yet...
+				ViewUtil.displayErrorMessage("Network is not initialized yet.");
+			}
+		});
 	}
 });

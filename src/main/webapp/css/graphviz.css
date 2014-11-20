@@ -57,3 +57,9 @@
 	cursor: inherit;
 	display: block;
 }
+.horizontal-edge-legend {
+	text-align: center;
+}
+#control-panels {
+	float: right
+}
