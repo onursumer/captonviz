@@ -34,7 +34,8 @@ public class CancerContextService
 
 		File edgeListDir = this.getEdgeListResource().getFile();
 		List<CancerStudy> cancerStudies = new ArrayList<>();
-		Set<String> names = new HashSet<>();
+		Map<String, String> id2NameMap = studyId2NameMap();
+		Set<String> ids = new HashSet<>();
 
 		if (edgeListDir.isDirectory())
 		{
@@ -44,22 +45,41 @@ public class CancerContextService
 
 				if (parts.length > 1)
 				{
-					names.add(parts[1]);
+					ids.add(parts[1]);
 				}
 			}
 
-			for (String name: names)
+			for (String id: ids)
 			{
 				CancerStudy study = new CancerStudy();
 
-				study.setStudyId(name);
-				study.setStudyName(name);
+				study.setStudyId(id);
+				study.setStudyName(id2NameMap.get(id));
 
 				cancerStudies.add(study);
 			}
 		}
 
 		return jsonSerializer.deepSerialize(cancerStudies);
+	}
+
+	private Map<String, String> studyId2NameMap()
+	{
+		Map<String, String> id2NameMap = new HashMap<>();
+
+		id2NameMap.put("BLCA", "Bladder Urothelial Carcinoma (BLCA)");
+		id2NameMap.put("BRCA", "Breast Invasive Carcinoma (BRCA)");
+		id2NameMap.put("COAD", "Colon Adenocarcinoma (COAD)");
+		id2NameMap.put("GBM", "Glioblastoma Multiforme (GBM)");
+		id2NameMap.put("HNSC", "Head And Neck Squamous Cell Carcinoma (HNSC)");
+		id2NameMap.put("KIRC", "Kidney Renal Clear Cell Carcinoma (KIRC)");
+		id2NameMap.put("LUAD", "Lung Adenocarcinoma (LUAD)");
+		id2NameMap.put("LUSC", "Lung Squamous Cell Carcinoma (LUSC)");
+		id2NameMap.put("OV", "Ovarian Serous Cystadenocarcinoma (OVCA)");
+		id2NameMap.put("READ", "Rectum Adenocarcinoma (READ)");
+		id2NameMap.put("UCEC", "Uterine Corpus Endometrioid Carcinoma (UCEC)");
+
+		return id2NameMap;
 	}
 
 	@Cacheable("cancerContextMethodsCache")
