@@ -5,6 +5,7 @@ import org.cbio.graphviz.model.CytoscapeJsEdge;
 import org.cbio.graphviz.model.CytoscapeJsGraph;
 import org.cbio.graphviz.model.CytoscapeJsNode;
 import org.cbio.graphviz.model.PropertyKey;
+import org.cbio.graphviz.util.DataUtil;
 import org.cbio.graphviz.util.StudyFileUtil;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RConnection;
@@ -155,6 +156,7 @@ public class CustomizedContextService extends CancerContextService
 		c.voidEval("is.match[is.na(is.match)] = 0;");
 
 		int[] inPc = c.eval("is.match;").asIntegers();
+		//int[] edgeSign = {1, 0, -1}; // TODO: R code
 
 		// create an edge list to visualize
 		List<CytoscapeJsEdge> edges = new ArrayList<>();
@@ -173,6 +175,7 @@ public class CustomizedContextService extends CancerContextService
 			edge.setProperty(PropertyKey.PROT2, targets[i]);
 
 			edge.setProperty(PropertyKey.INPC, inPc[i]);
+			//edge.setProperty(PropertyKey.EDGESIGN, edgeSign[i]);
 
 			edges.add(edge);
 		}
@@ -225,7 +228,7 @@ public class CustomizedContextService extends CancerContextService
 		for (int i = 0; i < sampleList.length; i++)
 		{
 			sb.append("'");
-			sb.append(sampleList[i]);
+			sb.append(DataUtil.normalizeSample(sampleList[i]));
 			sb.append("'");
 
 			if (i < sampleList.length - 1)

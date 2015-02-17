@@ -1,6 +1,7 @@
 package org.cbio.graphviz.service;
 
 import flexjson.JSONSerializer;
+import org.cbio.graphviz.util.DataUtil;
 import org.springframework.core.io.Resource;
 
 import java.io.BufferedReader;
@@ -39,7 +40,7 @@ public class SampleValidationService
 
 		for (String sample: samples)
 		{
-			if (pancanSamples.contains(sample))
+			if (pancanSamples.contains(DataUtil.normalizeSample(sample)))
 			{
 				validSamples.add(sample);
 			}
@@ -58,7 +59,7 @@ public class SampleValidationService
 
 		for (String sample: samples)
 		{
-			if (!pancanSamples.contains(sample))
+			if (!pancanSamples.contains(DataUtil.normalizeSample(sample)))
 			{
 				invalidSamples.add(sample);
 			}
