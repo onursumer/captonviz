@@ -48,11 +48,13 @@ public class UploadController
 //
 //	}
 
-	@RequestMapping(value = "file",
+	@RequestMapping(value = "file/{method}/{size}",
 	                method = {RequestMethod.POST},
 	                headers = "Accept=multipart/form-data")
 	public ResponseEntity<String> uploadFile(HttpServletRequest request,
-			HttpServletResponse response)
+			HttpServletResponse response,
+			@PathVariable String method,
+			@PathVariable Integer size)
 	{
 		HttpHeaders headers = new HttpHeaders();
 
@@ -77,6 +79,7 @@ public class UploadController
 					return new ResponseEntity<String>("Empty file.", headers, HttpStatus.BAD_REQUEST);
 				}
 
+				// TODO parse the input, generate the data matrix, and send it to R!
 				result = fieldName + ":" + Long.toString(item.getSize());
 			}
 

@@ -108,14 +108,16 @@ var DataUtil = (function()
 	 *
 	 * @param url       target (servlet) URL
 	 * @param data      file (form) data
-	 * @param callback  callback to be invoked on success
+	 * @param success   callback to be invoked on success
+	 * @param error     callback to be invoked on error
 	 */
-	function postFile(url, data, callback)
+	function postFile(url, data, success, error)
 	{
 		$.ajax({
 			url: url,
 			type: 'POST',
-			success: callback,
+			success: success,
+			error: error,
 			data: data,
 			//Options to tell jQuery not to process data or worry about content-type.
 			cache: false,

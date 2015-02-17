@@ -168,20 +168,42 @@ var UploadControlsView = Backbone.View.extend({
 			var size = edgeSlider.slider("value");
 			var color = edgeBox.val();
 			var label = labelBox.val();
-			//var samples = sampleInput.val().trim().split(/\s+/).join("|");
 
 			var dataUploadForm = self.$el.find(".data-file-form");
 
-			// TODO upload input data and init view
-			DataUtil.postFile('upload/file',
-				new FormData(dataUploadForm[0]),
-				function(data) {
-					// if no file selected, use the text area input (samples)
-					var input = _.isEmpty(data) ? samples : data;
+			var fileInput = self.$el.find(".custom-data");
 
-					// TODO everything should be implemented here...
-					console.log(data);
-			});
+			if (!fileInput.val() ||
+			    fileInput.val().length === 0)
+			{
+				// no file selected yet
+				ViewUtil.displayErrorMessage(
+					"Please select a data matrix file to upload first.");
+				return;
+			}
+
+			DataUtil.postFile('upload/file/' + method + "/" + size,
+				new FormData(dataUploadForm[0]),
+				// success callback
+				function(response) {
+					var data = {nodes: response.nodes,
+						edges: response.edges};
+
+					var model = {data: data, edgeColor: color, nodeLabel: label};
+
+					var networkOpts = {el: "#main-network-view", model: model};
+					var networkView = new NetworkView(networkOpts);
+					self.networkView = networkView;
+
+					networkView.render();
+				},
+				// error callback
+		        function(err) {
+			        ViewUtil.displayErrorMessage(
+				        "Error processing the data matrix file. " +
+				        "Please make sure that your file is valid.");
+		        }
+			);
 
 			// display loader message before actually loading the data
 			// it will be replaced by the network view once data is fetched
