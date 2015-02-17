@@ -46,7 +46,6 @@
 
     <link href="css/jquery.fancybox-1.3.4.css" rel="stylesheet">
 
-
     <!-- Loading cytoscape.js plugins -->
     <link href="css/jquery.cytoscape-panzoom.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -97,6 +96,7 @@
 	<script src="js/src/NetworkView.js"></script>
 	<script src="js/src/ControlsView.js"></script>
 	<script src="js/src/CustomControlsView.js"></script>
+	<script src="js/src/UploadControlsView.js"></script>
 	<script src="js/src/HelpView.js"></script>
 	<script src="js/src/MainView.js"></script>
 	<script src="js/src/StudyModel.js"></script>
@@ -186,11 +186,50 @@
 	<script type="text/template" id="custom_controls_template">
 		<h4 class="demo-panel-title">Samples</h4>
 		<textarea id="sample-list-input" rows="3" class="span3" tabindex="1"></textarea>
+		<h4 class="demo-panel-title">Method</h4>
+		<select id="methods-box" class="span3" tabindex="1">
+			{{methodOptions}}
+		</select>
+
+		<h4 class="demo-panel-title">Number of edges <small>(<span id="number-of-edges-info"></span>)</small></h4>
+		<table>
+			<tr>
+				<td class="minus-sign-container">
+					<a href="#" id="decrease-button" class="slider-control"><i class="icon-minus"></i></a>
+				</td>
+				<td colspan='2' class="nodes-slider-container">
+					<div id="slider-nodes" class="ui-slider"></div>
+				</td>
+				<td>
+					<a href="#" id="increase-button" class="slider-control"><i class="icon-plus"></i></a>
+				</td>
+			</tr>
+		</table>
+
+		<h4 class="demo-panel-title">Color Edges By</h4>
+		<select id="edge-color-box" class="span3" tabindex="1">
+			<option value="edgesign">Edge Sign</option>
+			<option value="inpc">In PC</option>
+		</select>
+
+		<h4 class="demo-panel-title">Label Nodes By</h4>
+		<select id="node-label-box" class="span3" tabindex="1">
+			<option value="prot">Prot Name</option>
+			<option value="gene">Gene Name</option>
+		</select>
+
+		<a id="visualize-study" class="btn btn-primary btn-large btn-block" href="#">
+			Visualize
+		</a>
+	</script>
+
+	<script type="text/template" id="upload_controls_template">
+		<h4 class="demo-panel-title">Upload Your Own Data</h4>
 		<form class="form-horizontal data-file-form"
 		      enctype="multipart/form-data"
 		      method="post">
 			<span class="file-input btn btn-primary btn-file">
-				Upload Your Own Data <input class="custom-data" name="data_file" type="file">
+				Select Data Matrix File <input class="custom-data" name="data_file" type="file">
 			</span>
 			<div class="selected-file-info"></div>
 		</form>
@@ -258,9 +297,12 @@
 					<li><a href="#custom-settings" id="menu-customized-network" data-toggle="tab">
 						<span class="fui-menu-16"></span> Custom</a>
 					</li>
-					<li><a href="#vis-help" id="menu-help" data-toggle="tab">
-						<span class="fui-menu-16"></span> Help</a>
+					<li><a href="#upload-settings" id="menu-upload-data" data-toggle="tab">
+						<span class="fui-menu-16"></span> Upload</a>
 					</li>
+					<!--li><a href="#vis-help" id="menu-help" data-toggle="tab">
+						<span class="fui-menu-16"></span> Help</a>
+					</li-->
 				</ul>
 			</div>
 			<div class="span4">
@@ -271,9 +313,12 @@
 					<div class="tab-pane fade" id="custom-settings">
 						<!-- customized controls view -->
 					</div>
-					<div class="tab-pane fade" id="vis-help">
-						<!-- help text, legend, etc -->
+					<div class="tab-pane fade" id="upload-settings">
+						<!-- upload controls view -->
 					</div>
+					<!--div class="tab-pane fade" id="vis-help"-->
+						<!-- help text, legend, etc -->
+					<!--/div-->
 				</div>
 			</div>
 			<div class="row" id="control-panels">

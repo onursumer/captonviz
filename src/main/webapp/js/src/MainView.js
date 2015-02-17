@@ -22,11 +22,13 @@ var MainView = Backbone.View.extend({
 
 		var defaultView = new ControlsView({el: "#graph-settings"});
 		var customView = new CustomControlsView({el: "#custom-settings"});
-		var helpView = new HelpView({el: "#vis-help"});
+		var uploadView = new UploadControlsView({el: "#upload-settings"});
+		//var helpView = new HelpView({el: "#vis-help"});
 
 		defaultView.render();
 		customView.render();
-		helpView.render();
+		uploadView.render();
+		//helpView.render();
 
 		// add listener for download-network button
 		$("#download-network").click(function(e) {

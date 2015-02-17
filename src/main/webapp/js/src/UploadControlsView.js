@@ -1,10 +1,8 @@
-var CustomControlsView = Backbone.View.extend({
+// TODO code duplication! -- see CustomControlsView
+var UploadControlsView = Backbone.View.extend({
 	render: function()
 	{
 		var self = this;
-
-		//var studies = new CancerStudies();
-		//var methods = new Methods();
 
 		var methodOptions = [];
 		var selectTemplateFn = _.template($("#select_item_template").html());
@@ -19,7 +17,7 @@ var CustomControlsView = Backbone.View.extend({
 
 		// compile the template using underscore
 		var template = _.template(
-			$("#custom_controls_template").html(),
+			$("#upload_controls_template").html(),
 			variables);
 
 		// load the compiled HTML into the Backbone "el"
@@ -27,7 +25,6 @@ var CustomControlsView = Backbone.View.extend({
 
 		self.format();
 	},
-	// TODO code duplication!! -- see ControlsView
 	format: function()
 	{
 		var self = this;
@@ -43,7 +40,7 @@ var CustomControlsView = Backbone.View.extend({
 		var incButton = self.$el.find("#increase-button");
 		var decButton = self.$el.find("#decrease-button");
 		var edgesInfo = self.$el.find("#number-of-edges-info");
-		var sampleInput = self.$el.find("#sample-list-input");
+		//var sampleInput = self.$el.find("#sample-list-input");
 
 		var edgeSlider = self.$el.find(".ui-slider");
 
@@ -65,6 +62,10 @@ var CustomControlsView = Backbone.View.extend({
 				self.networkView.updateEdgeStyle(value);
 			}
 		}});
+
+		// TODO a workaround for dropkick,
+		// somehow all dropboxes under this tab are invisible by default!
+		self.$el.find(".dk_container").addClass("dk_shown dk_theme_default");
 
 		edgeSlider.slider({
 			min: minVal,
@@ -144,6 +145,22 @@ var CustomControlsView = Backbone.View.extend({
 			});
 		};
 
+		// trigger a custom 'fileselect' event when a file selected
+		$(document).on('change', '.btn-file :file', function() {
+			var input = $(this);
+
+			var	numFiles = input.get(0).files ? input.get(0).files.length : 1;
+			var	label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+
+			input.trigger('fileselect', [numFiles, label]);
+		});
+
+		var uploadButton = self.$el.find(".btn-file :file");
+
+		uploadButton.on('fileselect', function(event, numFiles, label) {
+			self.$el.find(".selected-file-info").text("(" + label + ")");
+		});
+
 		var submit = self.$el.find("#visualize-study");
 
 		submit.click(function() {
@@ -151,62 +168,19 @@ var CustomControlsView = Backbone.View.extend({
 			var size = edgeSlider.slider("value");
 			var color = edgeBox.val();
 			var label = labelBox.val();
-			var samples = sampleInput.val().trim().split(/\s+/).join("|");
+			//var samples = sampleInput.val().trim().split(/\s+/).join("|");
 
-			if (samples == null ||
-			    samples.length == 0)
-			{
-				// empty sample list...
-				ViewUtil.displayErrorMessage(
-					"Please enter a list of samples into the input field above.");
-				return;
-			}
+			var dataUploadForm = self.$el.find(".data-file-form");
 
-			// validate input sample list
-			var validationData = new ValidationData({samples: samples});
+			// TODO upload input data and init view
+			DataUtil.postFile('upload/file',
+				new FormData(dataUploadForm[0]),
+				function(data) {
+					// if no file selected, use the text area input (samples)
+					var input = _.isEmpty(data) ? samples : data;
 
-			validationData.fetch({
-				type: "POST",
-				data: {samples: validationData.get("samples")},
-				success: function(collection, response, options)
-				{
-					// TODO customize threshold
-					var threshold = 5;
-					var valid = response.validSamples.length;
-
-					if (valid < threshold)
-					{
-						var message = "Please enter at least " + threshold + " valid samples.";
-
-						if (valid == 0)
-						{
-							ViewUtil.displayErrorMessage(
-								"None of the samples entered are valid.<br>" +
-								message);
-						}
-						else
-						{
-							ViewUtil.displayErrorMessage(
-								"You have entered only " +
-								response.validSamples.length +
-								" valid sample(s).<br>" +
-								message);
-						}
-					}
-					else
-					{
-						var studyData = new CustomStudyData({method: method,
-							size: size,
-							samples: response.validSamples.join("|")});
-
-						fetchStudyData(studyData, response, color, label);
-					}
-				},
-				error: function(collection, response, options)
-				{
-					ViewUtil.displayErrorMessage(
-						"Error validating sample list.");
-				}
+					// TODO everything should be implemented here...
+					console.log(data);
 			});
 
 			// display loader message before actually loading the data
@@ -216,4 +190,3 @@ var CustomControlsView = Backbone.View.extend({
 		});
 	}
 });
-
