@@ -235,9 +235,19 @@
 		<div class="row mainview">
 			<div class="span8">  <!-- cytoscape view -->
 				<div id="network-container">
-					<div id="main-network-view">
+					<div id="main-network-view"></div>
+					<div class="span8 edge-legend" id="edge-legend">
+						<table>
+							<tr>
+								<td><div class="legend-rect legend-edge-sign-pos"></div>Edge Sign (Positive)</td>
+								<td><div class="legend-rect legend-edge-sign-neg"></div>Edge Sign (Negative)</td>
+							</tr>
+							<tr>
+								<td><div class="legend-rect legend-in-pc-true"></div>In Pathway Commons</td>
+								<td><div class="legend-rect legend-in-pc-false"></div>Not In Pathway Commons</td>
+							</tr>
+						</table>
 					</div>
-					<div class="horizontal-edge-legend" id="horizontal-edge-legend"></div>
 				</div>
 			</div>
 			<div class="span4">

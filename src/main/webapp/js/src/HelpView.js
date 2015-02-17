@@ -25,10 +25,10 @@ var HelpView = Backbone.View.extend({
 			el: self.$el.find(".legend"),
 			orientation: "vertical",
 			items: [
-				{name: "Edge Sign (1)", color: "#FF0000"},
-				{name: "Edge Sign (-1)", color: "#0000FF"},
-				{name: "In Pathway Commons (PC)", color: "#11FA34"},
-				{name: "Not In PC", color: "#7F7F7F"}
+				{name: "Edge Sign (Positive)", color: "#FF0000"},
+				{name: "Edge Sign (Negative)", color: "#0000FF"},
+				{name: "In Pathway Commons", color: "#11FA34"},
+				{name: "Not In Pathway Commons", color: "#7F7F7F"}
 				//{name: "Default/Unknown", color: "#444"}
 			]});
 

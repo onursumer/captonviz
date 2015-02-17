@@ -57,8 +57,31 @@
 	cursor: inherit;
 	display: block;
 }
-.horizontal-edge-legend {
-	text-align: center;
+.edge-legend {
+	width: 99%;
+}
+.edge-legend table {
+	margin-left: auto;
+	margin-right: auto;
+}
+.legend-rect {
+	width: 10px;
+	height: 10px;
+	display: inline-block;
+	margin-right: 5px;
+	color: #101010;
+}
+.legend-edge-sign-pos {
+	background-color: #FF0000;
+}
+.legend-edge-sign-neg {
+	background-color: #0000FF;
+}
+.legend-in-pc-true {
+	background-color: #11FA34;
+}
+.legend-in-pc-false {
+	background-color: #7F7F7F;
 }
 #control-panels {
 	float: right
