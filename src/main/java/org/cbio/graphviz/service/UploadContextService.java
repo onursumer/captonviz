@@ -1,5 +1,6 @@
 package org.cbio.graphviz.service;
 
+import org.cbio.graphviz.util.CustomFileParseUtil;
 import org.rosuda.REngine.REXPMismatchException;
 import org.rosuda.REngine.Rserve.RConnection;
 import org.rosuda.REngine.Rserve.RserveException;
@@ -48,13 +49,50 @@ public class UploadContextService extends CustomizedContextService
 		reader.close();
 		writer.close();
 
-		// TODO get actual list from input file!
-		String samples = "TCGA-B6-A0I6|TCGA-BH-A0C1|TCGA-AR-A0U2|TCGA-A2-A0YF|TCGA-BH-A18J";
-
 		this.reloadData = true;
-		return super.getStudyData(method, size, samples);
+		return super.getStudyData(method, size, this.extractSamples(outputDir));
 	}
 
+	/**
+	 * Extracts list of samples from the file uploaded by user.
+	 *
+	 * @param outputDir temporary output dir to store user files
+	 * @return          sample list as pipe ('|') delimited string
+	 * @throws IOException
+	 */
+	protected String extractSamples(String outputDir) throws IOException
+	{
+		BufferedReader reader = new BufferedReader(
+				new FileReader(outputDir + "/" + OUTPUT_FILENAME));
+
+		String line = reader.readLine();
+		StringBuilder sb = new StringBuilder();
+
+		// assuming that the first line is a header line
+		CustomFileParseUtil parser = new CustomFileParseUtil(line);
+
+		while ((line = reader.readLine()) != null)
+		{
+			sb.append(parser.getValue(line, CustomFileParseUtil.SAMPLE_ID));
+			sb.append("|");
+		}
+
+		// delete the last "|"
+		sb.deleteCharAt(sb.length() - 1);
+
+		reader.close();
+
+		return sb.toString();
+	}
+
+	/**
+	 * Reads data matrix user input.
+	 *
+	 * @param c RConnection
+	 * @throws IOException
+	 * @throws RserveException
+	 */
+	@Override
 	protected void readDataMatrix(RConnection c) throws IOException, RserveException
 	{
 		String dataFile = this.getOutputDirResource().getFile().getAbsolutePath() +
