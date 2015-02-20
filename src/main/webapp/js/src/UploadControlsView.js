@@ -98,53 +98,6 @@ var UploadControlsView = Backbone.View.extend({
 			edgeSlider.slider({value: newVal});
 		});
 
-		// fetches study data from server
-		var fetchStudyData = function(studyData, validation, color, label)
-		{
-			studyData.fetch({
-				type: "POST",
-				data: {samples: studyData.get("samples")},
-				success: function(collection, response, options)
-				{
-					// display notification for validated samples
-					(new NotyView({template: "#noty-network-loaded-template",
-						model: {
-							numberOfSamples: validation.validSamples.length,
-							type: "success"
-						}
-					})).render();
-
-					if (validation.invalidSamples.length > 0)
-					{
-						(new NotyView({template: "#noty-invalid-sample-template",
-							warning: true,
-							timeout: 20000,
-							model: {
-								numberOfSamples: validation.invalidSamples.length,
-								sampleList: validation.invalidSamples.sort().join(", ")
-							}
-						})).render();
-					}
-
-					var data = {nodes: response.nodes,
-						edges: response.edges};
-
-					var model = {data: data, edgeColor: color, nodeLabel: label};
-
-					var networkOpts = {el: "#main-network-view", model: model};
-					var networkView = new NetworkView(networkOpts);
-					self.networkView = networkView;
-
-					networkView.render();
-				},
-				error: function(collection, response, options)
-				{
-					ViewUtil.displayErrorMessage(
-						"Error retrieving customized data.");
-				}
-			});
-		};
-
 		// trigger a custom 'fileselect' event when a file selected
 		$(document).on('change', '.btn-file :file', function() {
 			var input = $(this);

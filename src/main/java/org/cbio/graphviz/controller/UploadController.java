@@ -4,6 +4,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.cbio.graphviz.service.UploadContextService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +50,19 @@ public class UploadController
 //
 //	}
 
+	@Autowired
+	UploadContextService uploadContextService;
+
+	public UploadContextService getUploadContextService()
+	{
+		return uploadContextService;
+	}
+
+	public void setUploadContextService(UploadContextService uploadContextService)
+	{
+		this.uploadContextService = uploadContextService;
+	}
+
 	@RequestMapping(value = "file/{method}/{size}",
 	                method = {RequestMethod.POST},
 	                headers = "Accept=multipart/form-data")
@@ -70,17 +85,20 @@ public class UploadController
 			if (iter.hasNext())
 			{
 				FileItem item = iter.next();
-
-				InputStream contentStream = item.getInputStream();
-				String fieldName = item.getFieldName();
+				//String fieldName = item.getFieldName();
 
 				if (item.getSize() == 0)
 				{
 					return new ResponseEntity<String>("Empty file.", headers, HttpStatus.BAD_REQUEST);
 				}
 
-				// TODO parse the input, generate the data matrix, and send it to R!
-				result = fieldName + ":" + Long.toString(item.getSize());
+				InputStream contentStream = item.getInputStream();
+
+				try {
+					result = this.getUploadContextService().getStudyData(method, size, contentStream);
+				} catch (Exception e) {
+					return new ResponseEntity<String>(e.getMessage(), headers, HttpStatus.BAD_REQUEST);
+				}
 			}
 
 			return new ResponseEntity<String>(result, headers, HttpStatus.OK);

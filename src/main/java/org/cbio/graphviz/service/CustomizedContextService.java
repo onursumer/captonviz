@@ -74,6 +74,7 @@ public class CustomizedContextService extends CancerContextService
 	}
 
 	private RConnection conn = null;
+	protected boolean reloadData = true;
 
 	public String getStudyData(String method,
 			Integer size,
@@ -148,14 +149,23 @@ public class CustomizedContextService extends CancerContextService
 		c.voidEval("ce <- cbind(prots[edges[,2]],prots[edges[,3]]);");
 		c.voidEval("ind <- which(!(ce[,1] < ce[,2]));");
 		c.voidEval("ce[ind,] <- ce[ind,c(2,1)];");
-		// Combine the edges with a dot
-		c.voidEval("pcdot <- paste(pcData[,1],pcData[,2],sep='.');");
-		c.voidEval("cedot <- paste(ce[,1],ce[,2],sep='.');");
-		c.voidEval("is.match <- match(cedot,pcdot);");
-		c.voidEval("is.match[!is.na(is.match)] = 1;");
-		c.voidEval("is.match[is.na(is.match)] = 0;");
 
-		int[] inPc = c.eval("is.match;").asIntegers();
+		int[] inPc;
+
+		try {
+			// Combine the edges with a dot
+			c.voidEval("pcdot <- paste(pcData[,1],pcData[,2],sep='.');");
+			c.voidEval("cedot <- paste(ce[,1],ce[,2],sep='.');");
+			c.voidEval("is.match <- match(cedot,pcdot);");
+			c.voidEval("is.match[!is.na(is.match)] = 1;");
+			c.voidEval("is.match[is.na(is.match)] = 0;");
+
+			inPc = c.eval("is.match;").asIntegers();
+		}
+		catch (RserveException ex) {
+			inPc = new int[sources.length];
+		}
+
 		//int[] edgeSign = {1, 0, -1}; // TODO: R code
 
 		// create an edge list to visualize
@@ -210,14 +220,23 @@ public class CustomizedContextService extends CancerContextService
 			c.voidEval("source('" + functions + "');");
 
 			// load data files
-			String rppaData = this.getRppaDataResource().getFile().getAbsolutePath();
 			String pcData = this.getPcDataResource().getFile().getAbsolutePath();
-
-			c.voidEval("dataMatrix <- as.matrix(readRDS('" + rppaData + "'));");
 			c.voidEval("pcData <- readRDS('" + pcData + "');");
 		}
 
+		if (this.reloadData)
+		{
+			this.readDataMatrix(this.conn);
+		}
+
 		return this.conn;
+	}
+
+	protected void readDataMatrix(RConnection c) throws IOException, RserveException
+	{
+		String rppaData = this.getRppaDataResource().getFile().getAbsolutePath();
+		c.voidEval("dataMatrix <- as.matrix(readRDS('" + rppaData + "'));");
+		this.reloadData = false;
 	}
 
 	protected String generateSampleList(String samples)

@@ -26,4 +26,12 @@
 		<property name="rppaDataResource" value="${rppaData.location}"/>
 		<property name="rFunctionResource" value="${rFunction.location}"/>
 	</bean>
+
+	<bean class="org.cbio.graphviz.service.UploadContextService" id="uploadContextService">
+		<property name="pancanDataResource" value="${pancanData.location}"/>
+		<property name="pcDataResource" value="${pcData.location}"/>
+		<property name="rppaDataResource" value="${rppaData.location}"/>
+		<property name="rFunctionResource" value="${rFunction.location}"/>
+		<property name="outputDirResource" value="${outputDir.location}"/>
+	</bean>
 </beans>

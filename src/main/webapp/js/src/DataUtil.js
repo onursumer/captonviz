@@ -119,6 +119,7 @@ var DataUtil = (function()
 			success: success,
 			error: error,
 			data: data,
+			dataType: "json",
 			//Options to tell jQuery not to process data or worry about content-type.
 			cache: false,
 			contentType: false,
