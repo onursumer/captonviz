@@ -1,13 +1,8 @@
 package org.cbio.graphviz.util;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-/**
- * Created by sos on 2/19/15.
- */
 public class CustomFileParseUtil extends FileParseUtil
 {
 	public static final String SAMPLE_ID = "SampleID";
