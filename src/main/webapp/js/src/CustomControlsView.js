@@ -37,12 +37,12 @@ var CustomControlsView = Backbone.View.extend({
 		// TODO exact maxVal depends on the network size..
 		var maxVal = 500;
 
-		var methodBox = self.$el.find("#methods-box");
-		var edgeBox = self.$el.find("#edge-color-box");
-		var labelBox = self.$el.find("#node-label-box");
-		var incButton = self.$el.find("#increase-button");
-		var decButton = self.$el.find("#decrease-button");
-		var edgesInfo = self.$el.find("#number-of-edges-info");
+		var methodBox = self.$el.find("#custom-methods-box");
+		var edgeBox = self.$el.find("#custom-edge-color-box");
+		var labelBox = self.$el.find("#custom-node-label-box");
+		var incButton = self.$el.find("#custom-increase-button");
+		var decButton = self.$el.find("#custom-decrease-button");
+		var edgesInfo = self.$el.find("#custom-number-of-edges-info");
 		var sampleInput = self.$el.find("#sample-list-input");
 
 		var edgeSlider = self.$el.find(".ui-slider");

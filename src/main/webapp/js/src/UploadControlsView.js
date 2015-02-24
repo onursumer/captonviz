@@ -34,12 +34,12 @@ var UploadControlsView = Backbone.View.extend({
 		// TODO exact maxVal depends on the network size..
 		var maxVal = 500;
 
-		var methodBox = self.$el.find("#methods-box");
-		var edgeBox = self.$el.find("#edge-color-box");
-		var labelBox = self.$el.find("#node-label-box");
-		var incButton = self.$el.find("#increase-button");
-		var decButton = self.$el.find("#decrease-button");
-		var edgesInfo = self.$el.find("#number-of-edges-info");
+		var methodBox = self.$el.find("#upload-methods-box");
+		var edgeBox = self.$el.find("#upload-edge-color-box");
+		var labelBox = self.$el.find("#upload-node-label-box");
+		var incButton = self.$el.find("#upload-increase-button");
+		var decButton = self.$el.find("#upload-decrease-button");
+		var edgesInfo = self.$el.find("#upload-number-of-edges-info");
 		//var sampleInput = self.$el.find("#sample-list-input");
 
 		var edgeSlider = self.$el.find(".ui-slider");
@@ -62,10 +62,6 @@ var UploadControlsView = Backbone.View.extend({
 				self.networkView.updateEdgeStyle(value);
 			}
 		}});
-
-		// TODO a workaround for dropkick,
-		// somehow all dropboxes under this tab are invisible by default!
-		self.$el.find(".dk_container").addClass("dk_shown dk_theme_default");
 
 		edgeSlider.slider({
 			min: minVal,

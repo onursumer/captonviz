@@ -187,33 +187,34 @@
 		<h4 class="demo-panel-title">Samples</h4>
 		<textarea id="sample-list-input" rows="3" class="span3" tabindex="1"></textarea>
 		<h4 class="demo-panel-title">Method</h4>
-		<select id="methods-box" class="span3" tabindex="1">
+		<select id="custom-methods-box" class="span3" tabindex="1">
 			{{methodOptions}}
 		</select>
 
-		<h4 class="demo-panel-title">Number of edges <small>(<span id="number-of-edges-info"></span>)</small></h4>
+		<h4 class="demo-panel-title">Number of edges
+			<small>(<span id="custom-number-of-edges-info"></span>)</small></h4>
 		<table>
 			<tr>
 				<td class="minus-sign-container">
-					<a href="#" id="decrease-button" class="slider-control"><i class="icon-minus"></i></a>
+					<a href="#" id="custom-decrease-button" class="slider-control"><i class="icon-minus"></i></a>
 				</td>
 				<td colspan='2' class="nodes-slider-container">
 					<div id="slider-nodes" class="ui-slider"></div>
 				</td>
 				<td>
-					<a href="#" id="increase-button" class="slider-control"><i class="icon-plus"></i></a>
+					<a href="#" id="custom-increase-button" class="slider-control"><i class="icon-plus"></i></a>
 				</td>
 			</tr>
 		</table>
 
 		<h4 class="demo-panel-title">Color Edges By</h4>
-		<select id="edge-color-box" class="span3" tabindex="1">
+		<select id="custom-edge-color-box" class="span3" tabindex="1">
 			<option value="edgesign">Edge Sign</option>
 			<option value="inpc">In PC</option>
 		</select>
 
 		<h4 class="demo-panel-title">Label Nodes By</h4>
-		<select id="node-label-box" class="span3" tabindex="1">
+		<select id="custom-node-label-box" class="span3" tabindex="1">
 			<option value="prot">Prot Name</option>
 			<option value="gene">Gene Name</option>
 		</select>
@@ -234,33 +235,34 @@
 			<div class="selected-file-info"></div>
 		</form>
 		<h4 class="demo-panel-title">Method</h4>
-		<select id="methods-box" class="span3" tabindex="1">
+		<select id="upload-methods-box" class="span3" tabindex="1">
 			{{methodOptions}}
 		</select>
 
-		<h4 class="demo-panel-title">Number of edges <small>(<span id="number-of-edges-info"></span>)</small></h4>
+		<h4 class="demo-panel-title">Number of edges
+			<small>(<span id="upload-number-of-edges-info"></span>)</small></h4>
 		<table>
 			<tr>
 				<td class="minus-sign-container">
-					<a href="#" id="decrease-button" class="slider-control"><i class="icon-minus"></i></a>
+					<a href="#" id="upload-decrease-button" class="slider-control"><i class="icon-minus"></i></a>
 				</td>
 				<td colspan='2' class="nodes-slider-container">
 					<div id="slider-nodes" class="ui-slider"></div>
 				</td>
 				<td>
-					<a href="#" id="increase-button" class="slider-control"><i class="icon-plus"></i></a>
+					<a href="#" id="upload-increase-button" class="slider-control"><i class="icon-plus"></i></a>
 				</td>
 			</tr>
 		</table>
 
 		<h4 class="demo-panel-title">Color Edges By</h4>
-		<select id="edge-color-box" class="span3" tabindex="1">
+		<select id="upload-edge-color-box" class="span3" tabindex="1">
 			<option value="edgesign">Edge Sign</option>
-			<option value="inpc">In PC</option>
+			<!--option value="inpc">In PC</option-->
 		</select>
 
 		<h4 class="demo-panel-title">Label Nodes By</h4>
-		<select id="node-label-box" class="span3" tabindex="1">
+		<select id="upload-node-label-box" class="span3" tabindex="1">
 			<option value="prot">Prot Name</option>
 			<option value="gene">Gene Name</option>
 		</select>
