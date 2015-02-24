@@ -6,20 +6,20 @@
 <%--
   ~ Copyright 2014 Memorial-Sloan Kettering Cancer Center.
   ~
-  ~ This file is part of GraphViz.
+  ~ This file is part of ProtNet.
   ~
-  ~ GraphViz is free software: you can redistribute it and/or modify
+  ~ ProtNet is free software: you can redistribute it and/or modify
   ~ it under the terms of the GNU Lesser General Public License as published by
   ~ the Free Software Foundation, either version 3 of the License, or
   ~ (at your option) any later version.
   ~
-  ~ GraphViz is distributed in the hope that it will be useful,
+  ~ ProtNet is distributed in the hope that it will be useful,
   ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
   ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   ~ GNU Lesser General Public License for more details.
   ~
   ~ You should have received a copy of the GNU Lesser General Public License
-  ~ along with GraphViz. If not, see <http://www.gnu.org/licenses/>.
+  ~ along with ProtNet. If not, see <http://www.gnu.org/licenses/>.
   --%>
 
 <%
@@ -31,7 +31,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="utf-8">
-    <title>CaptonViz</title>
+    <title>ProtNet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- jQuery UI -->
@@ -50,7 +50,7 @@
     <link href="css/jquery.cytoscape-panzoom.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
-    <!-- Loading CaptonViz; this should always be the last to call! -->
+    <!-- Loading project specific css; this should always be the last to call! -->
     <link href="css/pcviz.css" rel="stylesheet">
 	<link href="css/graphviz.css" rel="stylesheet">
 
@@ -371,7 +371,7 @@
 		<div class="container">
 			<div id="pcviz-headline" class="pcviz-headline">
 				<h1>
-					CaptonViz
+					ProtNet
 					<small>Cancer Proteomic Network Visualization</small>
 				</h1>
 			</div>
