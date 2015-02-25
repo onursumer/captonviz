@@ -166,7 +166,12 @@ public class CustomizedContextService extends CancerContextService
 			inPc = new int[sources.length];
 		}
 
-		//int[] edgeSign = {1, 0, -1}; // TODO: R code
+		//c.voidEval("smat <- sign(cor(dataMatrix, method='spearman'))");
+		c.voidEval("smat <- sign(cor(filtered, method='spearman'))");
+		// edges[,2]: colnum -- edges[,3]: rownum
+		c.voidEval("edgeSignIndex <- ((edges[,2] - 1) * ncol(smat)) + edges[,3]");
+		// possible edge sign values: {1, 0, -1}
+		int[] edgeSign = c.eval("smat[edgeSignIndex]").asIntegers();
 
 		// create an edge list to visualize
 		List<CytoscapeJsEdge> edges = new ArrayList<>();
@@ -185,7 +190,7 @@ public class CustomizedContextService extends CancerContextService
 			edge.setProperty(PropertyKey.PROT2, targets[i]);
 
 			edge.setProperty(PropertyKey.INPC, inPc[i]);
-			//edge.setProperty(PropertyKey.EDGESIGN, edgeSign[i]);
+			edge.setProperty(PropertyKey.EDGESIGN, edgeSign[i]);
 
 			edges.add(edge);
 		}
