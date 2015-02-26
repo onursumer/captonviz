@@ -395,10 +395,10 @@
 						<p>
 							It allows interactive exploration of the cancer proteomic networks where users can:
 						<ul>
-							<li>explore the predefined cancer pretoemic networks</li>
+							<li>explore the predefined cancer proteomic networks</li>
 							<li>visualize custom networks by entering specific TCGA sample ids or
 								by uploading data matrix files</li>
-							<li>reduce the size of the network by setting number of desired edges</li>
+							<li>reduce the size of the network by setting the number of desired edges</li>
 							<li>download networks in SIF format for further analysis</li>
 						</ul>
 
