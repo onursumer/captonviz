@@ -380,6 +380,59 @@
 		</div>
 	</div>
 	<div id="main_container" class="container"></div>
+	<div id="main_footer">
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="span8">
+						<h3 class="footer-title">About</h3>
+
+						<p>
+							ProtNet is an open-source web-based network visualization tool for
+							Cancer Proteomic Networks.
+						</p>
+
+						<p>
+							It allows interactive exploration of the cancer proteomic networks where users can:
+						<ul>
+							<li>explore the predefined cancer pretoemic networks</li>
+							<li>visualize custom networks by entering specific TCGA sample ids or
+								by uploading data matrix files</li>
+							<li>reduce the size of the network by setting number of desired edges</li>
+							<li>download networks in SIF format for further analysis</li>
+						</ul>
+
+						<p>ProtNet is built and maintained by
+							<a href="http://cbio.mskcc.org">Memorial Sloan-Kettering Cancer Center</a>.
+						</p>
+					</div>
+
+					<div class="span4">
+						<div class="footer-banner">
+							<h3 class="footer-title">More</h3>
+							<ul>
+								<li>
+									<a href="https://code.google.com/p/captonviz/wiki/Tutorial">Tutorials / Help</a>
+								</li>
+								<li>
+									<a href="http://www.pathwaycommons.org/pcviz/">PCViz</a>
+								</li>
+								<li>
+									<a href="http://www.cbioportal.org">cBioPortal</a>
+								</li>
+								<li>
+									<a href="http://cytoscape.github.io/cytoscape.js/">cytoscape.js</a>
+								</li>
+								<li>
+									<a href="http://code.google.com/p/captonviz/">Code</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
 
   </body>
 </html>
