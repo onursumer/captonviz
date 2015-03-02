@@ -168,14 +168,14 @@
 
 		<h4 class="demo-panel-title">Color Edges By</h4>
 		<select id="edge-color-box" class="span3" tabindex="1">
-			<option value="edgesign">Edge Sign</option>
-			<option value="inpc">In PC</option>
+			<option value="edgesign">Edge sign</option>
+			<option value="inpc">In Pathway Commons?</option>
 		</select>
 
 		<h4 class="demo-panel-title">Label Nodes By</h4>
 		<select id="node-label-box" class="span3" tabindex="1">
-			<option value="prot">Prot Name</option>
-			<option value="gene">Gene Name</option>
+			<option value="prot">Protein symbol</option>
+			<option value="gene">Gene symbol</option>
 		</select>
 
 		<a id="visualize-study" class="btn btn-primary btn-large btn-block" href="#">
@@ -184,7 +184,7 @@
 	</script>
 
 	<script type="text/template" id="custom_controls_template">
-		<h4 class="demo-panel-title">Samples</h4>
+		<h4 class="demo-panel-title">TCGA sample IDs</h4>
 		<textarea id="sample-list-input" rows="3" class="span3" tabindex="1"></textarea>
 		<h4 class="demo-panel-title">Method</h4>
 		<select id="custom-methods-box" class="span3" tabindex="1">
@@ -209,14 +209,14 @@
 
 		<h4 class="demo-panel-title">Color Edges By</h4>
 		<select id="custom-edge-color-box" class="span3" tabindex="1">
-			<option value="edgesign">Edge Sign</option>
-			<option value="inpc">In PC</option>
+			<option value="edgesign">Edge sign</option>
+			<option value="inpc">In Pathway Commons?</option>
 		</select>
 
 		<h4 class="demo-panel-title">Label Nodes By</h4>
 		<select id="custom-node-label-box" class="span3" tabindex="1">
-			<option value="prot">Prot Name</option>
-			<option value="gene">Gene Name</option>
+			<option value="prot">Protein symbol</option>
+			<option value="gene">Gene symbol</option>
 		</select>
 
 		<a id="visualize-study" class="btn btn-primary btn-large btn-block" href="#">
@@ -255,17 +255,17 @@
 			</tr>
 		</table>
 
-		<h4 class="demo-panel-title">Color Edges By</h4>
+		<!--h4 class="demo-panel-title">Color Edges By</h4>
 		<select id="upload-edge-color-box" class="span3" tabindex="1">
-			<option value="edgesign">Edge Sign</option>
-			<!--option value="inpc">In PC</option-->
-		</select>
+			<option value="edgesign">Edge sign</option>
+			<option value="inpc">In Pathway Commons?</option>
+		</select-->
 
-		<h4 class="demo-panel-title">Label Nodes By</h4>
+		<!--h4 class="demo-panel-title">Label Nodes By</h4>
 		<select id="upload-node-label-box" class="span3" tabindex="1">
-			<option value="prot">Prot Name</option>
-			<option value="gene">Gene Name</option>
-		</select>
+			<option value="prot">Protein symbol</option>
+			<option value="gene">Gene symbol</option>
+		</select-->
 
 		<a id="visualize-study" class="btn btn-primary btn-large btn-block" href="#">
 			Visualize
@@ -280,8 +280,8 @@
 					<div class="span8 edge-legend" id="edge-legend">
 						<table>
 							<tr>
-								<td><div class="legend-rect legend-edge-sign-pos"></div>Edge Sign (Positive)</td>
-								<td><div class="legend-rect legend-edge-sign-neg"></div>Edge Sign (Negative)</td>
+								<td><div class="legend-rect legend-edge-sign-pos"></div>Edge sign (positive)</td>
+								<td><div class="legend-rect legend-edge-sign-neg"></div>Edge sign (negative)</td>
 							</tr>
 							<tr>
 								<td><div class="legend-rect legend-in-pc-true"></div>In Pathway Commons</td>
@@ -396,7 +396,7 @@
 							It allows interactive exploration of the cancer proteomic networks where users can:
 						<ul>
 							<li>explore the predefined cancer proteomic networks</li>
-							<li>visualize custom networks by entering specific TCGA sample ids or
+							<li>visualize custom networks by entering specific TCGA sample IDs or
 								by uploading data matrix files</li>
 							<li>reduce the size of the network by setting the number of desired edges</li>
 							<li>download networks in SIF format for further analysis</li>

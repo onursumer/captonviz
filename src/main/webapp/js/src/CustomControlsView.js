@@ -9,7 +9,7 @@ var CustomControlsView = Backbone.View.extend({
 		var methodOptions = [];
 		var selectTemplateFn = _.template($("#select_item_template").html());
 
-		methodOptions.push(selectTemplateFn({selectId: "spearmanCor", selectName: "Spearman"}));
+		methodOptions.push(selectTemplateFn({selectId: "spearmanCor", selectName: "SpearmanCor"}));
 		methodOptions.push(selectTemplateFn({selectId: "genenet", selectName: "Genenet"}));
 		methodOptions.push(selectTemplateFn({selectId: "ridgenet", selectName: "Ridgenet"}));
 		methodOptions.push(selectTemplateFn({selectId: "lassonet", selectName: "Lassonet"}));

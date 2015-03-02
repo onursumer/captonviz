@@ -119,7 +119,7 @@ public class CancerContextService
 				Method m = new Method();
 
 				m.setMethodId(name);
-				m.setMethodName(name);
+				m.setMethodName(name.substring(0,1).toUpperCase() + name.substring(1));
 
 				methods.add(m);
 			}
