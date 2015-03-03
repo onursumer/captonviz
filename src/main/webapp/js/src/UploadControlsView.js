@@ -40,8 +40,8 @@ var UploadControlsView = Backbone.View.extend({
 		var incButton = self.$el.find("#upload-increase-button");
 		var decButton = self.$el.find("#upload-decrease-button");
 		var edgesInfo = self.$el.find("#upload-number-of-edges-info");
-		//var sampleInput = self.$el.find("#sample-list-input");
 
+		var uploadHelp = self.$el.find(".upload-file-help");
 		var edgeSlider = self.$el.find(".ui-slider");
 
 		edgesInfo.html(defaultVal);
@@ -93,6 +93,8 @@ var UploadControlsView = Backbone.View.extend({
 			var newVal = Math.min(oldVal+1, maxVal);
 			edgeSlider.slider({value: newVal});
 		});
+
+		uploadHelp.fancybox();
 
 		// trigger a custom 'fileselect' event when a file selected
 		$(document).on('change', '.btn-file :file', function() {

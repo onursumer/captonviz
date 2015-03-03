@@ -226,12 +226,31 @@
 
 	<script type="text/template" id="upload_controls_template">
 		<h4 class="demo-panel-title">Upload Your Own Data</h4>
+		<div style="display:none">
+			<div id="fancybox-inline-data">
+				You can upload your own data matrix files as tab delimited plain text files
+				in <b>txt</b>, <b>tsv</b> or <b>csv</b> format.<br>
+				<br>
+				Example data matrix file format:<br><br>
+				<table>
+					<tr class="header-row"><td>SampleID</td><td>Akt</td><td>Akt_pS473</td><td>Akt_pT308</td><td>AMPK_alpha</td><td>AMPK_pT172</td></tr>
+					<tr><td>TCGA-B6-A0I6</td><td>0.154298</td><td>-0.35781</td><td>-0.447332</td><td>-0.574477</td><td>-0.394586</td></tr>
+					<tr><td>TCGA-BH-A0C1</td><td>-0.827756</td><td>-1.038089</td><td>0.967767</td><td>-0.01783</td><td>-0.16318</td></tr>
+					<tr><td>TCGA-AR-A0U2</td><td>-0.799884</td><td>-0.617498</td><td>-0.068958</td><td>-0.66862</td><td>-1.990531</td></tr>
+					<tr><td>TCGA-A2-A0YF</td><td>-0.974146</td><td>-0.356275</td><td>0.233013</td><td>-0.462506</td><td>-0.966453</td></tr>
+					<tr><td>TCGA-BH-A18J</td><td>0.186297</td><td>-0.482782</td><td>0.354039</td><td>0.116103</td><td>-0.391372</td></tr>
+				</table>
+			</div>
+		</div>
 		<form class="form-horizontal data-file-form"
 		      enctype="multipart/form-data"
 		      method="post">
 			<span class="file-input btn btn-primary btn-file">
 				Select Data Matrix File <input class="custom-data" name="data_file" type="file">
 			</span>
+			<a class="upload-file-help btn btn-primary btn-mini" href="#fancybox-inline-data">
+				<i class="icon-question-sign"></i>
+			</a>
 			<div class="selected-file-info"></div>
 		</form>
 		<h4 class="demo-panel-title">Method</h4>
