@@ -117,8 +117,8 @@ var UploadControlsView = Backbone.View.extend({
 		submit.click(function() {
 			var method = methodBox.val();
 			var size = edgeSlider.slider("value");
-			var color = edgeBox.val();
-			var label = labelBox.val();
+			var color = edgeBox.val() || "edgesign";
+			var label = labelBox.val() || "prot";
 
 			var dataUploadForm = self.$el.find(".data-file-form");
 
