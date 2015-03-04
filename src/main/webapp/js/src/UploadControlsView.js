@@ -158,8 +158,7 @@ var UploadControlsView = Backbone.View.extend({
 
 			// display loader message before actually loading the data
 			// it will be replaced by the network view once data is fetched
-			$("#main-network-view").html(_.template(
-				$("#loader_template").html(), {}));
+			ViewUtil.initNetworkView();
 		});
 	}
 });

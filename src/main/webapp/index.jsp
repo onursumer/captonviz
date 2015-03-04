@@ -380,6 +380,12 @@
 		<div class="network-loading">
 			<h4>Loading network...</h4>
 			<img src="images/loading.gif" alt="loading network...">
+			<div class="help-text palette palette-silver too-slow-message hide">
+				<h5>Taking too long?</h5><br>
+				Some methods like Ridgenet and Lassonet require more time to calculate the correlations.
+				Therefore, it sometimes takes too long to load the network.
+				<br><br>
+			</div>
 		</div>
 	</script>
 

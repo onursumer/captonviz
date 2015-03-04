@@ -20,7 +20,30 @@ var ViewUtil = (function()
 		notyView.render();
 	}
 
+	/**
+	 * Initializes the network view with loader image and a delayed
+	 * info message (in case of long waiting).
+	 *
+	 * @param delay delay in miliseconds to show additional info while loading
+	 */
+	function initNetworkView(delay)
+	{
+		var timeout = delay || 2000;
+		var mainNetworkView = $("#main-network-view");
+
+		// display loader message before actually loading the data
+		// it will be replaced by the network view once data is fetched
+		mainNetworkView.html(_.template(
+			$("#loader_template").html(), {}));
+
+		// additional info will appear after certain amount of time
+		setTimeout(function() {
+			mainNetworkView.find(".too-slow-message").slideDown();
+		}, timeout);
+	}
+
 	return {
-		displayErrorMessage: displayErrorMessage
+		displayErrorMessage: displayErrorMessage,
+		initNetworkView: initNetworkView
 	};
 })();
