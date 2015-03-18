@@ -1,5 +1,6 @@
-edgeList.location=
-pancanData.location=
-pcData.location=
-rppaData.location=
-rFunction.location=
+edgeList.location=file:/data/captonviz/edgelists
+pancanData.location=file:/data/captonviz/TCGA-PANCAN11-RBN-v2_0.txt
+pcData.location=file:/data/captonviz/bp_pancan_network_collapsed_vRPPA.data
+rppaData.location=file:/data/captonviz/TCGA_PANCAN11_RPPA.rdata
+rFunction.location=file:/data/captonviz/functions.r
+outputDir.location=file:/tmp/
