@@ -437,7 +437,7 @@
 							<h3 class="footer-title">More</h3>
 							<ul>
 								<li>
-									<a href="https://code.google.com/p/captonviz/wiki/Tutorial">Tutorials / Help</a>
+									<a href="https://github.com/onursumer/protnet/wiki/Tutorial">Tutorials / Help</a>
 								</li>
 								<li>
 									<a href="http://www.pathwaycommons.org/pcviz/">PCViz</a>
@@ -449,7 +449,7 @@
 									<a href="http://cytoscape.github.io/cytoscape.js/">cytoscape.js</a>
 								</li>
 								<li>
-									<a href="http://code.google.com/p/captonviz/">Code</a>
+									<a href="https://github.com/onursumer/protnet">Code</a>
 								</li>
 							</ul>
 						</div>

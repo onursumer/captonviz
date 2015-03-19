@@ -1,4 +1,4 @@
-# protnet
+# ProtNet
 
 ProtNet is an open-source web-based network visualization tool for Cancer Proteomic Networks.
 
