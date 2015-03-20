@@ -8,3 +8,5 @@ It allows interactive exploration of the cancer proteomic networks where users c
  * visualize custom networks by entering specific TCGA sample ids or by uploading data matrix files
  * reduce the size of the network by setting number of desired edges
  * download networks in SIF format for further analysis
+
+ProtNet uses [cytoscape.js](http://cytoscape.github.io/cytoscape.js/) for graph visualization. Project structure is based on [PCViz](https://github.com/PathwayCommons/pcviz/).
