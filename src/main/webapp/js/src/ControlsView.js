@@ -173,5 +173,8 @@ var ControlsView = Backbone.View.extend({
 				}
 			});
 		});
+
+		// initially load default view with default selection
+		submit.click();
 	}
 });
