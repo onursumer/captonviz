@@ -355,13 +355,19 @@
 			<div class="row" id="control-panels">
 				<div>
 					<div class="btn-toolbar">
-						<div class="btn-group network-controls">
-							<a class="btn" id="download-network" href="#"><i class="icon-download-alt"></i> Download</a>
-							<!--a class="btn" id="refresh-view" href="#"><i class="icon-refresh"></i> Refresh</a-->
-							<!--a class="btn" id="embed-network" href="#"><i class="icon-code"></i> Embed</a-->
-							<a class="btn" id="full-screen-link" href="#"><i class="icon-resize-full"></i>
-								<span class="full-screen-button-text">Full Size</span>
-							</a>
+						<div class="input-group">
+							<div class="btn-group input-append search-controls">
+								<input type="text" class="form-control" placeholder="Enter gene/protein name">
+								<a class="btn btn-primary" id="search-gene" href="#"><i class="icon-search"></i></a>
+							</div>
+							<div class="btn-group network-controls">
+								<a class="btn" id="download-network" href="#"><i class="icon-download-alt"></i> Download</a>
+								<!--a class="btn" id="refresh-view" href="#"><i class="icon-refresh"></i> Refresh</a-->
+								<!--a class="btn" id="embed-network" href="#"><i class="icon-code"></i> Embed</a-->
+								<a class="btn" id="full-screen-link" href="#"><i class="icon-resize-full"></i>
+									<span class="full-screen-button-text">Full Size</span>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>

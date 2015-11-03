@@ -83,6 +83,10 @@
 .legend-in-pc-false {
 	background-color: #7F7F7F;
 }
+.search-controls {
+	margin-bottom: 0;
+	float: left;
+}
 #control-panels {
 	float: right
 }
