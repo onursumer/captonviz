@@ -357,8 +357,9 @@
 					<div class="btn-toolbar">
 						<div class="input-group">
 							<div class="btn-group input-append search-controls">
-								<input type="text" class="form-control" placeholder="Enter gene/protein name">
-								<a class="btn btn-primary" id="search-gene" href="#"><i class="icon-search"></i></a>
+								<input type="text" id="search-network-input" class="form-control"
+								       placeholder="Enter gene/protein name">
+								<a class="btn btn-primary" id="search-network" href="#"><i class="icon-search"></i></a>
 							</div>
 							<div class="btn-group network-controls">
 								<a class="btn" id="download-network" href="#"><i class="icon-download-alt"></i> Download</a>

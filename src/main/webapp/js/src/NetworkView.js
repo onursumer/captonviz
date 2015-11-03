@@ -49,7 +49,8 @@ var NetworkView = Backbone.View.extend({
 	        })
 	        .selector(":selected")
 	        .css({
-	            "background-color": "#000",
+	            "background-color": "#EE0",
+				"border-color": "#880",
 	            "line-color": "#000",
 	            "source-arrow-color": "#000",
 	            "target-arrow-color": "#000"

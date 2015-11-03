@@ -30,6 +30,50 @@ var MainView = Backbone.View.extend({
 		uploadView.render();
 		//helpView.render();
 
+		// search action handler function
+		var handleSearch = function(e) {
+			var searchText = $("#search-network-input").val().toLowerCase();
+
+			if (window.cy)
+			{
+				// unselect all nodes (to clear the previous selection)
+				window.cy.nodes().unselect();
+
+				if (searchText.trim().length > 0)
+				{
+					var nodes = window.cy.filter(function (i, ele) {
+						var gene = ele.data()["gene"];
+						var prot = ele.data()["prot"];
+
+						return (gene != null && gene.toLowerCase().indexOf(searchText) != -1) ||
+						       (prot != null && prot.toLowerCase().indexOf(searchText) != -1);
+					});
+
+					if (nodes.size() > 0)
+					{
+						// select nodes
+						nodes.select();
+					}
+					else
+					{
+						// TODO display a message next to the search box!
+					}
+				}
+			}
+		};
+
+		$("#search-network-input").keypress(function(e)
+        {
+            var enterCode = 13;
+            if (e.keyCode == enterCode)
+            {
+	            handleSearch(e);
+            }
+        });
+
+		// add listener for the search button
+		$("#search-network").click(handleSearch);
+
 		// add listener for download-network button
 		$("#download-network").click(function(e) {
 			e.preventDefault();
