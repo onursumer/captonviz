@@ -111,22 +111,22 @@ public class CustomizedContextService extends CancerContextService
 		if (method.equalsIgnoreCase("spearmanCor"))
 		{
 			c.voidEval("res <- cor(filtered, method='spearman');");
-			c.voidEval("edges <- ggm.test.edges(res, verbose=FALSE, plot=FALSE)[,1:3];");
+			c.voidEval("edges <- network.test.edges(res, verbose=FALSE, plot=FALSE)[,1:3];");
 		}
 		else if (method.equalsIgnoreCase("genenet"))
 		{
 			c.voidEval("res <- ggm.estimate.pcor(filtered);");
-			c.voidEval("edges <- ggm.test.edges(res, verbose=FALSE, plot=FALSE)[,1:3];");
+			c.voidEval("edges <- network.test.edges(res, verbose=FALSE, plot=FALSE)[,1:3];");
 		}
 		else if (method.equalsIgnoreCase("ridgenet"))
 		{
 			c.voidEval("res <- ridge.net.vLambda(filtered, countLambda=250, k=5);");
-			c.voidEval("edges <- ggm.test.edges(res$pcor, verbose=FALSE, plot=FALSE)[,1:3];");
+			c.voidEval("edges <- network.test.edges(res$pcor, verbose=FALSE, plot=FALSE)[,1:3];");
 		}
 		else if (method.equalsIgnoreCase("lassonet"))
 		{
 			c.voidEval("res <- lasso.net.vLambda(filtered, lambda=0.1);");
-			c.voidEval("edges <- ggm.test.edges(res$pcor, verbose=FALSE, plot=FALSE)[,1:3];");
+			c.voidEval("edges <- network.test.edges(res$pcor, verbose=FALSE, plot=FALSE)[,1:3];");
 		}
 		else if (method.equalsIgnoreCase("aracne_m"))
 		{

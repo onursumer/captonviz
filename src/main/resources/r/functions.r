@@ -536,7 +536,7 @@ performance.pcor.vY = function (inferred.pcor, true.pcor = NULL, fdr = TRUE, cut
 {
   p <- ncol(inferred.pcor)
   if (fdr) {
-      test.results <- ggm.test.edges(inferred.pcor, verbose = verbose, plot = plot.it)
+      test.results <- network.test.edges(inferred.pcor, verbose = verbose, plot = plot.it)
       prob.results <- diag(p)
       for (i in 1:length(test.results$prob)) {
         prob.results[test.results$node1[i], test.results$node2[i]] <- test.results$prob[i]
