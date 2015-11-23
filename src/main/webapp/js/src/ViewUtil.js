@@ -20,6 +20,20 @@ var ViewUtil = (function()
 		notyView.render();
 	}
 
+	// displays a warning message to the user as a NotyView
+	function displayWarningMessage(message)
+	{
+		var notyView = new NotyView({
+			template: "#noty-error-msg-template",
+			warning: true,
+			model: {
+				errorMsg: message
+			}
+		});
+
+		notyView.render();
+	}
+
 	/**
 	 * Initializes the network view with loader image and a delayed
 	 * info message (in case of long waiting).
@@ -44,6 +58,7 @@ var ViewUtil = (function()
 
 	return {
 		displayErrorMessage: displayErrorMessage,
+		displayWarningMessage: displayWarningMessage,
 		initNetworkView: initNetworkView
 	};
 })();

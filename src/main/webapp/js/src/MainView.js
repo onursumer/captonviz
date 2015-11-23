@@ -56,7 +56,9 @@ var MainView = Backbone.View.extend({
 					}
 					else
 					{
-						// TODO display a message next to the search box!
+						// display a warning message
+						ViewUtil.displayWarningMessage(
+							"No matching element found for the provided search text.");
 					}
 				}
 			}
