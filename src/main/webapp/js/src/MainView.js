@@ -42,11 +42,15 @@ var MainView = Backbone.View.extend({
 				if (searchText.trim().length > 0)
 				{
 					var nodes = window.cy.filter(function (i, ele) {
-						var gene = ele.data()["gene"];
-						var prot = ele.data()["prot"];
+						//var gene = ele.data()["gene"];
+						//var prot = ele.data()["prot"];
+						//
+						//return (gene != null && gene.toLowerCase().indexOf(searchText) != -1) ||
+						//       (prot != null && prot.toLowerCase().indexOf(searchText) != -1);
 
-						return (gene != null && gene.toLowerCase().indexOf(searchText) != -1) ||
-						       (prot != null && prot.toLowerCase().indexOf(searchText) != -1);
+						// search within the label content (display value, not the data)
+						var content = ele.style().content;
+						return (content != null && content.trim().toLowerCase().indexOf(searchText) != -1);
 					});
 
 					if (nodes.size() > 0)
