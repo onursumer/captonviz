@@ -304,6 +304,15 @@
 	<script type="text/template" id="main-view-template">
 		<div class="row mainview">
 			<div class="span8">  <!-- cytoscape view -->
+				<div class="btn-toolbar top-toolbar">
+					<div class="btn-group input-append search-controls">
+						<input type="text" id="search-network-input" class="form-control"
+						       placeholder="Enter gene/protein name">
+						<button class="btn btn-primary" id="search-network" href="#">
+							<i class="icon-search"></i> Find in Network
+						</button>
+					</div>
+				</div>
 				<div id="network-container">
 					<div id="main-network-view"></div>
 					<div class="span8 edge-legend" id="edge-legend">
@@ -355,13 +364,15 @@
 			<div class="row" id="control-panels">
 				<div>
 					<div class="btn-toolbar">
-						<div class="btn-group network-controls">
-							<a class="btn" id="download-network" href="#"><i class="icon-download-alt"></i> Download</a>
-							<!--a class="btn" id="refresh-view" href="#"><i class="icon-refresh"></i> Refresh</a-->
-							<!--a class="btn" id="embed-network" href="#"><i class="icon-code"></i> Embed</a-->
-							<a class="btn" id="full-screen-link" href="#"><i class="icon-resize-full"></i>
-								<span class="full-screen-button-text">Full Size</span>
-							</a>
+						<div class="input-group">
+							<div class="btn-group network-controls">
+								<a class="btn" id="download-network" href="#"><i class="icon-download-alt"></i> Download</a>
+								<!--a class="btn" id="refresh-view" href="#"><i class="icon-refresh"></i> Refresh</a-->
+								<!--a class="btn" id="embed-network" href="#"><i class="icon-code"></i> Embed</a-->
+								<a class="btn" id="full-screen-link" href="#"><i class="icon-resize-full"></i>
+									<span class="full-screen-button-text">Full Size</span>
+								</a>
+							</div>
 						</div>
 					</div>
 				</div>

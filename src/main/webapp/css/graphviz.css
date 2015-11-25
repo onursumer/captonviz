@@ -83,6 +83,18 @@
 .legend-in-pc-false {
 	background-color: #7F7F7F;
 }
+.top-toolbar {
+	margin-bottom: 0;
+	margin-top: 4px;
+	float:none;
+	text-align: center;
+}
+.search-controls .btn {
+	font-size: 14px;
+}
+#search-network-input {
+	padding-bottom: 8px;
+}
 #control-panels {
 	float: right
 }
